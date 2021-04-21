@@ -15,7 +15,7 @@
 
 <body>
 
-  <!--  page d'accueil et de connexion -->
+  <!--  page d'inscription  -->
 
 </body>
 

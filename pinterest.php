@@ -15,7 +15,7 @@
 
 <body>
 
-  <!--  page d'accueil et de connexion -->
+  <!--  page montrant toutes les photos  -->
 
 </body>
 
