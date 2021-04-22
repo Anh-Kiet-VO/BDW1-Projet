@@ -48,8 +48,8 @@ if (isset($_GET["subscribe"])) {
 } ?>
     <form action="connexion.php" method="POST">
           <div class="formConnection">
-              <div class="loginInfo">Pseudo :</div><div><input type="text" name="pseudo"></div>
-              <div class="loginInfo">Mot de passe :</div><div><input type="password" name="mdp"></div>
+              <div class="loginInfo"><label for="pseudo">Pseudo : </label><input id="pseudo "type="text" name="pseudo"></div>
+              <div class="loginInfo"><label for"mdp">Mot de passe : </label><input type="password" name="mdp"></div>
               <div><input class="button" type="submit" name="valider" value="Se connecter"></div>
           </div>
     </form>

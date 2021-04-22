@@ -3,7 +3,7 @@
 
 :root {
   --black: #1b1b1b;
-  --color1: #deeaf2;
+  --color1: #f1f9ff;
   --color2: #1a8ac9;
 }
 
@@ -41,7 +41,7 @@ body {
 }
 
 .navigation a.boutonNav {
-  padding: 2px 8px;
+  padding: 2px 5px;
   border-bottom: 2px solid var(--black);
 }
 
@@ -52,7 +52,7 @@ body {
 
 .navigation a.boutonInscrip {
   border: 2px solid var(--black);
-  padding: 8px 15px;
+  padding: 8px 20px;
 }
 
 .navigation a.boutonInscrip:hover {
