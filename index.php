@@ -1,6 +1,9 @@
-<?php
+<!--     PAGE D'ACCUEIL     -->
 
-//à compléter
+<?php
+session_start();
+require_once 'php/bd.php';
+require_once 'php/utilisateur.php';
 
 ?>
 
@@ -10,12 +13,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Application mini-Pinterest</title>
-  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-  <!--  page d'accueil et de connexion -->
+  <div class="navigation"><span class="logo">mini-pinterest.</span><a class="boutonNav" href="./index.php">accueil</a> <a class="boutonNav" href="./connexion.php">se connecter</a> <a class="boutonInscrip" href="./inscription.php">s'inscrire</a></div>
 
 </body>
 
