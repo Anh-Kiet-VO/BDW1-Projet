@@ -18,6 +18,11 @@ function displayPhotos($array)
     }
 }
 
+if (isset($_POST['submit'])) {
+    $selected_val = $_POST['categorie'];  // Storing Selected Value In Variable
+    echo "You have selected :" .$selected_val;  // Displaying Selected Value
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +32,7 @@ function displayPhotos($array)
   <meta charset="UTF-8">
   <title>Application mini-Pinterest</title>
   <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 </head>
 
 <body>
@@ -36,12 +42,18 @@ function displayPhotos($array)
   <div class="blocprincipal">
     <div class="categories">
       <form action="index.php" method="POST">
-        <input type="radio" id="categorie1" name="categorie" value="categorie1"><label for="categorie1">Catégorie 1</label>
-        <input type="radio" id="categorie2" name="categorie" value="categorie2"><label for="categorie2">Catégorie 2</label>
-        <input type="radio" id="categorie3" name="categorie" value="categorie3"><label for="categorie3">Catégorie 3</label>
+        <select name="categorie">
+<option value="Tout">Tout</option>
+<option value="Chiens">Chiens</option>
+<option value="Chats">Chats</option>
+<option value="Chèvres">Chèvres</option>
+<option value="Singes">Singes</option>
+<option value="Quokkas">Quokkas</option>
+</select>
+<input type="submit" name="submit" value="Get Selected Values" />
       </form>
     </div>
-    <div class="galerie"><?php displayPhotos($pathsList); ?></div>
+    <div class="galerie" data-masonry='{ "itemSelector": "img", "columnWidth": 200 }'><?php displayPhotos($pathsList); ?></div>
   </div>
 
 </body>
