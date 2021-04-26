@@ -4,6 +4,19 @@
 session_start();
 require_once 'php/bd.php';
 require_once 'php/utilisateur.php';
+require_once 'php/photo.php';
+
+$link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
+
+$pathsList = getImagesPaths($link);
+
+function displayPhotos($array)
+{
+    foreach ($array as $value) {
+        $html = '<img src="' . $value . '">';
+        echo $html;
+    }
+}
 
 ?>
 
@@ -28,7 +41,7 @@ require_once 'php/utilisateur.php';
         <input type="radio" id="categorie3" name="categorie" value="categorie3"><label for="categorie3">Catégorie 3</label>
       </form>
     </div>
-    <div class="galerie"></div>
+    <div class="galerie"><?php displayPhotos($pathsList); ?></div>
   </div>
 
 </body>

@@ -67,3 +67,10 @@ body {
   font-size: 2.3em;
   letter-spacing: -.1em;
 }
+
+/*  -----------------------
+       GALERIE DE PHOTOS
+    -----------------------  */
+.galerie img {
+  max-width: 200px;
+}
