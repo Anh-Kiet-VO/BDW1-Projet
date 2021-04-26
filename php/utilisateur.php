@@ -4,7 +4,7 @@
 retourne vrai si le pseudo est disponible (pas d'occurence dans les données existantes), faux sinon*/
 function checkAvailability($pseudo, $link)
 {
-    $query = "SELECT u.pseudo FROM utilisateur u WHERE u.pseudo = '". $pseudo ."';";
+    $query = "SELECT U.pseudo FROM Utilisateur U WHERE U.pseudo = '". $pseudo ."';";
     $result = executeQuery($link, $query);
     return mysqli_num_rows($result) == 0;
 }
@@ -13,10 +13,7 @@ function checkAvailability($pseudo, $link)
 array('red', 'green', 'blue', 'black', 'yellow', 'orange') et enregistre le nouvel utilisateur dans la relation utilisateur via la connexion*/
 function register($pseudo, $hashPwd, $link)
 {
-    $colors = array('#7247c1', '#c6397b', '#379ee2', '#7fcd43', '#ffc62e', '#ec412e');
-    $index = rand(0, 5);
-    $color = $colors[$index];
-    $query = "INSERT INTO utilisateur VALUES ('". $pseudo ."', '". $hashPwd ."', '". $color ."', 'disconnected');";
+    $query = "INSERT INTO Utilisateur VALUES ('". $pseudo ."', '". $hashPwd ."', 'disconnected', 'user');";
     executeUpdate($link, $query);
 }
 
@@ -24,14 +21,14 @@ function register($pseudo, $hashPwd, $link)
 utilisateur via la connexion*/
 function setConnected($pseudo, $link)
 {
-    $query = "UPDATE utilisateur SET etat = 'connected' WHERE pseudo = '" . $pseudo . "';";
+    $query = "UPDATE Utilisateur SET etat = 'connected' WHERE pseudo = '" . $pseudo . "';";
     executeUpdate($link, $query);
 }
 
 /*Cette fonction prend en entrée un pseudo et mot de passe et renvoie vrai si l'utilisateur existe (au moins un tuple dans le résultat), faux sinon*/
 function getUser($pseudo, $hashPwd, $link)
 {
-    $query = "SELECT * FROM utilisateur u WHERE u.pseudo = '" . $pseudo . "' AND u.mdp = '" . $hashPwd . "';";
+    $query = "SELECT * FROM Utilisateur U WHERE U.pseudo = '" . $pseudo . "' AND U.mdp = '" . $hashPwd . "';";
     $result = executeQuery($link, $query);
     return mysqli_num_rows($result) >= 1;
 }
@@ -39,7 +36,7 @@ function getUser($pseudo, $hashPwd, $link)
 /*Cette fonction renvoie un tableau (array) contenant tous les pseudos d'utilisateurs dont l'état est 'connected'*/
 function getConnectedUsers($link)
 {
-    $query = "SELECT u.pseudo FROM utilisateur u WHERE u.etat = 'connected';";
+    $query = "SELECT U.pseudo FROM Utilisateur U WHERE U.etat = 'connected';";
     $usersList = array();
     foreach ($link->query($query) as $row) {
         $usersList[] = $row['pseudo'];
@@ -51,15 +48,6 @@ function getConnectedUsers($link)
 utilisateur via la connexion*/
 function setDisconnected($pseudo, $link)
 {
-    $query = "UPDATE utilisateur SET etat = 'disconnected' WHERE pseudo = '" . $pseudo . "';";
+    $query = "UPDATE Utilisateur SET etat = 'disconnected' WHERE pseudo = '" . $pseudo . "';";
     executeUpdate($link, $query);
-}
-
-/*Cette fonction renvoie la couleur associée à un utilisateur pour son affichage dans le fil de discussion*/
-function getUserColor($pseudo, $link)
-{
-    $query = "SELECT couleur FROM utilisateur WHERE pseudo = \"" . $pseudo . "\";";
-    $result = executeQuery($link, $query);
-    $row = mysqli_fetch_assoc($result);
-    return $row['couleur'];
 }
