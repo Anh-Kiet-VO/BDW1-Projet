@@ -20,9 +20,3 @@ CREATE TABLE Utilisateur(
   etat VARCHAR(250) NOT NULL,
   role VARCHAR(250) NOT NULL
 );
-
-CREATE TABLE Administrateur(
-  adminId INTEGER NOT NULL,
-  adminPseudo VARCHAR(250) NOT NULL,
-  adminMdp VARCHAR(250) NOT NULL
-);
