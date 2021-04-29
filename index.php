@@ -13,7 +13,7 @@ $pathsCatList = getImagesPaths($link);
 function displayPhotos($array)
 {
     foreach ($array as $value) {
-        $html = '<img src="' . $value . '">';
+        $html = '<a href="detail.php"><img class="" src="' . $value . '"></a>';
         echo $html;
     }
 }

@@ -71,6 +71,12 @@ body {
 /*  -----------------------
        GALERIE DE PHOTOS
     -----------------------  */
+.galerie {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
 .galerie img {
   max-width: 200px;
 }

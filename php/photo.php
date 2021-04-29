@@ -23,16 +23,11 @@ function getImgCategorie($link, $catId)
 }
 
 // Récupère les informations d'une image en fonction de son Id
-function detail($ImageId, $link) {
-    $reqNomFich = "SELECT nomFich FROM Photo WHERE photoId = " . $ImageId;
-    $nomFich = executeQuery($link, $reqNomFich);
-    $fetchNom = $nomFich->fetch_assoc();
+function detail($imageId, $link)
+{
+    $query = "SELECT nomFich, description, catId FROM Photo WHERE photoId = " . $imageId;
+    $tabDetail = executeQuery($link, $query);
+    $assocTabDetail = $tabDetail->fetch_assoc();
 
-    $reqDesc = "SELECT description FROM Photo WHERE photoId = " . $ImageId;
-    $description = executeQuery($link, $reqDesc);
-    $fetchDesc = $description->fetch_assoc();
-
-    $reqCat = "SELECT nomCat FROM Categorie WHERE catId = (SELECT catId FROM Photo WHERE photoId = " . $ImageId . ")";
-    $categorie = executeQuery($link, $reqCat);
-    $fetchCat = $categorie->fetch_assoc();
+    return $assocTabDetail;
 }

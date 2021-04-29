@@ -1,4 +1,17 @@
 <!--     DETAIL D'UNE PHOTO     -->
+<?php
+require_once 'php/bd.php';
+require_once 'php/utilisateur.php';
+require_once 'php/photo.php';
+
+$link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
+
+$imageId = 1;
+
+$tabDetail = detail($imageId, $link);
+
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,18 +28,12 @@
   <div class="navigation"><span class="logo">mini-pinterest.</span><a class="boutonNav" href="./index.php">accueil</a> <a class="boutonNav" href="./connexion.php">se connecter</a> <a class="boutonInscrip" href="./inscription.php">s'inscrire</a></div>
 
   <div class="detailphoto">
-    test
-  </div>
-
-</body>
-
-  <div class="detail">
     <table>
       <tr>
         <th>Description</th>
         <td>
           <?php
-            echo $fetchDesc['description'];
+            echo $tabDetail['description'];
           ?>
         </td>
       </tr>
@@ -35,7 +42,7 @@
         <th>Nom du fichier</th>
         <td>
             <?php
-              echo $fetchNom['nomFich'];
+              echo $tabDetail['nomFich'];
             ?>
         </td>
       </tr>
@@ -43,11 +50,13 @@
         <th>Catégorie</th>
         <td>
           <?php
-            echo $fetchCat['categorie']
+            echo $tabDetail['catId']
           ?>
         </td>
       </tr>
-    </table> 
+    </table>
   </div>
-  
+
+</body>
+
 </html>
