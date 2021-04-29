@@ -20,4 +20,34 @@
 
 </body>
 
+  <div class="detail">
+    <table>
+      <tr>
+        <th>Description</th>
+        <td>
+          <?php
+            echo $fetchDesc['description'];
+          ?>
+        </td>
+      </tr>
+
+      <tr>
+        <th>Nom du fichier</th>
+        <td>
+            <?php
+              echo $fetchNom['nomFich'];
+            ?>
+        </td>
+      </tr>
+      <tr>
+        <th>Catégorie</th>
+        <td>
+          <?php
+            echo $fetchCat['categorie']
+          ?>
+        </td>
+      </tr>
+    </table> 
+  </div>
+  
 </html>
