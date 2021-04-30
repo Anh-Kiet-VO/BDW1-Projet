@@ -22,6 +22,16 @@ function getImgCategorie($link, $catId)
     return $pathsCatList;
 }
 
+// Récupère nom de la catégorie d'après son Id
+function getNomCat($imageNom, $catId, $link)
+{
+    $query = "SELECT C.nomCat FROM Categorie C JOIN Photo P ON C.catId = " . $catId . " WHERE P.nomFich = '" . $imageNom . "';";
+    $nomCat = executeQuery($link, $query);
+    $assocNomCat = $nomCat->fetch_assoc();
+
+    return $assocNomCat;
+}
+
 // Récupère les informations d'une image en fonction de son Id
 function detail($imageNom, $link)
 {

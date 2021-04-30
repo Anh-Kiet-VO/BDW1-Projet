@@ -6,15 +6,49 @@ require_once 'php/bd.php';
 require_once 'php/utilisateur.php';
 require_once 'php/photo.php';
 
+print_r($_SESSION);
+echo "<br />";
+
 $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
 
-$pathsCatList = getImagesPaths($link);
+if (empty($_SESSION)) {
+    $connectState = 0;
+} else {
+    $connectState = 1;
+    $utilisateur = $_SESSION["user"];
+    if (!empty($_SESSION["user"])) {
+        $time = time() - $_SESSION["time"];
+        $readableTime = timeElapsed($time);
+        echo $readableTime;
+    }
+}
+
+if (empty($_GET)) {
+    $pathsCatList = getImagesPaths($link);
+} else {
+    $nomCat = $_GET["img_nomCat"];
+    $pathsCatList = getImgCategorie($link, $nomCat);
+}
+
+if (isset($_POST['deconnexion'])) {
+    echo "fonction";
+    setDisconnected($utilisateur, $link);
+    session_destroy();
+    header('Location: index.php');
+}
+
+function connectButton($connectState)
+{
+    if ($connectState == 0) {
+        echo '<a class="boutonNav" href="./connexion.php">se connecter</a>';
+    } elseif ($connectState == 1) {
+        echo '<form action="index.php" method="POST"><input class="button" type="submit" name="deconnexion" value="Se déconnecter"></form>';
+    }
+}
 
 function displayPhotos($array)
 {
     foreach ($array as $value) {
-        //$html = '<a href="detail.php"><img class="" src="' . $value . '"></a>';
-        //$html = '<a href="detail.php?img_id=id"><img class="" src="' . $value . '"></a>';
         $html = '<a href="detail.php?img_nomFich='. $value . '"><img class="" src="' . $value . '"></a>';
         echo $html;
     }
@@ -59,7 +93,7 @@ if (isset($_POST['submit'])) {
 
 <body>
 
-  <div class="navigation"><span class="logo">mini-pinterest.</span><a class="boutonNav" href="./index.php">accueil</a> <a class="boutonNav" href="./connexion.php">se connecter</a> <a class="boutonInscrip" href="./inscription.php">s'inscrire</a></div>
+  <div class="navigation"><span class="logo">mini-pinterest.</span><a class="boutonNav" href="./index.php">accueil</a> <?php connectButton($connectState); ?> <a class="boutonInscrip" href="./inscription.php">s'inscrire</a></div>
 
   <div class="blocprincipal">
     <div class="categories">

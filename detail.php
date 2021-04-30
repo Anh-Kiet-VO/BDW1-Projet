@@ -1,14 +1,26 @@
 <!--     DETAIL D'UNE PHOTO     -->
+
 <?php
+session_start();
 require_once 'php/bd.php';
 require_once 'php/utilisateur.php';
 require_once 'php/photo.php';
+
+print_r($_SESSION);
 
 $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
 
 $imageNom = $_GET["img_nomFich"];
 
 $tabDetail = detail($imageNom, $link);
+
+$tabNomCat = getNomCat($imageNom, $tabDetail['catId'], $link);
+
+function displayPhoto($nomFich)
+{
+    $html = '<img class="" src="' . $nomFich . '">';
+    echo $html;
+}
 
 ?>
 
@@ -31,22 +43,9 @@ $tabDetail = detail($imageNom, $link);
   <div class="detailphoto">
     <table>
       <tr>
-        <th>
-          <?php
-            echo $tabDetail['nomFich'];
-          ?>
-        </th>
         <td>
         <?php
-          function displayPhotos($array)
-          {
-            foreach ($array as $value) {
-            //$html = '<a href="detail.php"><img class="" src="' . $value . '"></a>';
-            //$html = '<a href="detail.php?img_id=id"><img class="" src="' . $value . '"></a>';
-            $html = '<a href="detail.php?img_nomFich='. $value . '"><img class="" src="' . $value . '"></a>';
-            echo $html;
-            }
-          }
+          displayPhoto($tabDetail['nomFich']);
         ?>
         </td>
       </tr>
@@ -70,9 +69,13 @@ $tabDetail = detail($imageNom, $link);
       <tr>
         <th>Catégorie</th>
         <td>
+          <a href="index.php?img_nomCat=<?php
+            echo $tabDetail['catId'];
+          ?>">
           <?php
-            echo $tabDetail['catId']
+            echo $tabNomCat['nomCat'];
           ?>
+        </a>
         </td>
       </tr>
     </table>

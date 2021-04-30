@@ -51,3 +51,20 @@ function setDisconnected($pseudo, $link)
     $query = "UPDATE Utilisateur SET etat = 'disconnected' WHERE pseudo = '" . $pseudo . "';";
     executeUpdate($link, $query);
 }
+
+function timeElapsed($secs)
+{
+    $bit = array(
+        'h' => $secs / 3600 % 24,
+        'min' => $secs / 60 % 60,
+        'sec' => $secs % 60
+        );
+
+    foreach ($bit as $k => $v) {
+        if ($v > 0) {
+            $ret[] = $v . $k;
+        }
+    }
+
+    return join(' ', $ret);
+}
