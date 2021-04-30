@@ -22,6 +22,22 @@ function displayPhoto($nomFich)
     echo $html;
 }
 
+echo "<br />";
+
+if (empty($_SESSION)) {
+  $connectState = 0;
+} else {
+  $connectState = 1;
+  $utilisateur = $_SESSION["user"];
+  if (!empty($_SESSION["user"])) {
+      $time = time() - $_SESSION["time"];
+      $readableTime = timeElapsed($time);
+      echo $readableTime;
+      echo "<br />";
+      echo "Bonjour " . $utilisateur;
+  }
+}
+
 ?>
 
 

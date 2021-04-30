@@ -20,6 +20,8 @@ if (empty($_SESSION)) {
         $time = time() - $_SESSION["time"];
         $readableTime = timeElapsed($time);
         echo $readableTime;
+        echo "<br />";
+        echo "Bonjour " . $utilisateur;
     }
 }
 
