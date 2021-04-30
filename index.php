@@ -10,12 +10,12 @@ $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
 
 $pathsCatList = getImagesPaths($link);
 
-function displayPhotos2($array)
+function displayPhotos($array)
 {
     foreach ($array as $value) {
         //$html = '<a href="detail.php"><img class="" src="' . $value . '"></a>';
         //$html = '<a href="detail.php?img_id=id"><img class="" src="' . $value . '"></a>';
-        $html = '<img class="" src="' . $value . '">';
+        $html = '<a href="detail.php?img_nomFich='. $value . '"><img class="" src="' . $value . '"></a>';
         echo $html;
     }
 }
