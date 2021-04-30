@@ -6,11 +6,12 @@ require_once 'php/photo.php';
 
 $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
 
-$imageId = 1;
+$imageNom = $_GET["img_nomFich"];
 
-$tabDetail = detail($imageId, $link);
+$tabDetail = detail($imageNom, $link);
 
 ?>
+
 
 
 <!DOCTYPE html>
@@ -29,6 +30,26 @@ $tabDetail = detail($imageId, $link);
 
   <div class="detailphoto">
     <table>
+      <tr>
+        <th>
+          <?php
+            echo $tabDetail['nomFich'];
+          ?>
+        </th>
+        <td>
+        <?php
+          function displayPhotos($array)
+          {
+            foreach ($array as $value) {
+            //$html = '<a href="detail.php"><img class="" src="' . $value . '"></a>';
+            //$html = '<a href="detail.php?img_id=id"><img class="" src="' . $value . '"></a>';
+            $html = '<a href="detail.php?img_nomFich='. $value . '"><img class="" src="' . $value . '"></a>';
+            echo $html;
+            }
+          }
+        ?>
+        </td>
+      </tr>
       <tr>
         <th>Description</th>
         <td>

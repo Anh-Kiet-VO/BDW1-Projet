@@ -14,7 +14,7 @@ function getImagesPaths($link)
 // Récupère la catégorie de l'image
 function getImgCategorie($link, $catId)
 {
-    $query = "SELECT P.nomFich FROM Photo P WHERE catId = " . $catId;
+    $query = "SELECT P.nomFich FROM Photo P WHERE catId = " . $catId . ";";
     $pathsCatList = array();
     foreach ($link->query($query) as $row) {
         $pathsCatList[] = $row['nomFich'];
@@ -23,9 +23,9 @@ function getImgCategorie($link, $catId)
 }
 
 // Récupère les informations d'une image en fonction de son Id
-function detail($imageId, $link)
+function detail($imageNom, $link)
 {
-    $query = "SELECT nomFich, description, catId FROM Photo WHERE photoId = " . $imageId;
+    $query = "SELECT nomFich, description, catId FROM Photo WHERE nomFich = '" . $imageNom . "';";
     $tabDetail = executeQuery($link, $query);
     $assocTabDetail = $tabDetail->fetch_assoc();
 
