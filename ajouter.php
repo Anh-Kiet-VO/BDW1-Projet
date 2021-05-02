@@ -25,10 +25,12 @@ if (empty($_SESSION)) {
 }
 
 if (isset($_POST['ajouter'])) {
-    $getImage = $_POST['fileToUpload'];
-    $getDescription = $_POST['description'];
-    $getCategorie = $_POST['categorie'];
+    $getImage = basename($_FILES["fileToUpload"]["name"]);
+    $getDescription = $_POST["description"];
+    $getCategorie = $_POST["categorie"];
+    $imageFileType = strtolower(pathinfo($getImage, PATHINFO_EXTENSION));
     addPhoto($getImage, $getDescription, $getCategorie, $link);
+    renamePhoto($imageFileType, $link);
 }
 ?>
 
@@ -45,14 +47,13 @@ if (isset($_POST['ajouter'])) {
 <body>
 <form action="ajouter.php" method="post" enctype="multipart/form-data">
     Image : <br>
-    <input type="file" name="fileToUpload" id="fileToUpload" required> <br> <br>
+    <input type="file" name="fileToUpload" id="fileToUpload" required><br><br>
 
     Description : <br>
     <input type="text" name="description" id="description" required> <br> <br>
 
     Catégorie : <br>
 	<select name="categorie">
-        <option value="0">Tout</option>
         <option value="1">Chiens</option>
         <option value="2">Chats</option>
         <option value="3">Chèvres</option>

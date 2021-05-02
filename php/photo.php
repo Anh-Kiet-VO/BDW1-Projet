@@ -45,9 +45,10 @@ function detail($imageNom, $link)
 function addPhoto($imageNom, $imageDesc, $catId, $link)
 {
     /* AJOUTE LA PHOTO SUR LE SERVEUR */
-    $target_dir = "image/";
-    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+    $target_dir = "./image/";
+    $target_file = $target_dir . $imageNom;
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    $new_target_file = $target_dir . "temp";
     $uploadOk = 1;
 
     // Check if image file is a actual image or fake image
@@ -63,7 +64,7 @@ function addPhoto($imageNom, $imageDesc, $catId, $link)
     }
 
     // Check if file already exists
-    if (file_exists($target_file)) {
+    if (file_exists($new_target_file)) {
         echo "Sorry, file already exists.";
         $uploadOk = 0;
     }
@@ -86,7 +87,7 @@ function addPhoto($imageNom, $imageDesc, $catId, $link)
         echo "Sorry, your file was not uploaded.";
     // if everything is ok, try to upload file
     } else {
-        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $new_target_file)) {
             echo "The file ". htmlspecialchars(basename($_FILES["fileToUpload"]["name"])). " has been uploaded.";
         } else {
             echo "Sorry, there was an error uploading your file.";
@@ -94,6 +95,27 @@ function addPhoto($imageNom, $imageDesc, $catId, $link)
     }
 
     /* AJOUTE LA PHOTO SUR LA BASE DE DONNEES */
-    $query = "INSERT INTO Photo(nomFich, description, catId) VALUES ('" . $imageNom . "', '" . $imageDesc . "', " . $catId . ")";
+    $query = "INSERT INTO Photo(nomFich, description, catId) VALUES ('" . $new_target_file . "', '" . $imageDesc . "', " . $catId . ")";
+    executeUpdate($link, $query);
+}
+
+function getTempPhotoId($link)
+{
+    $query = "SELECT photoId FROM Photo WHERE nomFich = './image/temp'";
+    $result = executeQuery($link, $query);
+    $tabResult = mysqli_fetch_assoc($result);
+    return $tabResult['photoId'];
+}
+
+function renamePhoto($fileType, $link)
+{
+    $photoId = getTempPhotoId($link);
+
+    /* RENOMME SUR LE SERVEUR */
+    $new_path = "./image/DSC_" . $photoId . "." . $fileType;
+    rename("./image/temp", $new_path);
+
+    /* RENOMME DANS LA BASE DE DONNEES */
+    $query = "UPDATE Photo SET nomFich = './image/DSC_" . $photoId . "." . $fileType . "' WHERE photoId = " . $photoId;
     executeUpdate($link, $query);
 }
