@@ -2,10 +2,10 @@
 
 ## À faire
 
-* [ ] ...
-* [ ] ...
-* [ ] ...
-* [ ] ...
+* [ ] Profil Admin / Utilisateur : gérer les utilisateurs
+* [ ] Bouton S'inscrire à enlever
+* [ ] Problème du temps de connexion
+* [ ] JS disposition des images
 
 ## À propos
 
