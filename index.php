@@ -6,9 +6,6 @@ require_once 'php/bd.php';
 require_once 'php/utilisateur.php';
 require_once 'php/photo.php';
 
-print_r($_SESSION);
-echo "<br />";
-
 $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
 
 if (empty($_SESSION)) {

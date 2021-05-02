@@ -118,4 +118,6 @@ function renamePhoto($fileType, $link)
     /* RENOMME DANS LA BASE DE DONNEES */
     $query = "UPDATE Photo SET nomFich = './image/DSC_" . $photoId . "." . $fileType . "' WHERE photoId = " . $photoId;
     executeUpdate($link, $query);
+
+    return $new_path;
 }

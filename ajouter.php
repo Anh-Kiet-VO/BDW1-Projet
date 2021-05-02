@@ -8,8 +8,6 @@ require_once 'php/photo.php';
 
 $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
 
-echo "<br />";
-
 if (empty($_SESSION)) {
     $connectState = 0;
 } else {
@@ -30,7 +28,8 @@ if (isset($_POST['ajouter'])) {
     $getCategorie = $_POST["categorie"];
     $imageFileType = strtolower(pathinfo($getImage, PATHINFO_EXTENSION));
     addPhoto($getImage, $getDescription, $getCategorie, $link);
-    renamePhoto($imageFileType, $link);
+    $new_path = renamePhoto($imageFileType, $link);
+    header('Location: detail.php?img_nomFich=' . $new_path);
 }
 ?>
 
