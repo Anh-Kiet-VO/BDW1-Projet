@@ -13,8 +13,9 @@ if (empty($_SESSION)) {
 } else {
     $connectState = 1;
     $utilisateur = $_SESSION["user"];
+    $tempsConnexion = getTempsConnexion($utilisateur, $link);
     if (!empty($_SESSION["user"])) {
-        $time = time() - $_SESSION["time"];
+        $time = time() - $tempsConnexion;
         $readableTime = timeElapsed($time);
         echo $readableTime;
         echo "<br />";
@@ -26,8 +27,9 @@ if (isset($_POST['ajouter'])) {
     $getImage = basename($_FILES["fileToUpload"]["name"]);
     $getDescription = $_POST["description"];
     $getCategorie = $_POST["categorie"];
+    $getUser = $_SESSION["user"];
     $imageFileType = strtolower(pathinfo($getImage, PATHINFO_EXTENSION));
-    $uploadOk = addPhoto($getImage, $getDescription, $getCategorie, $link);
+    $uploadOk = addPhoto($getImage, $getDescription, $getCategorie, $getUser, $link);
     if ($uploadOk == 1) {
         $new_path = renamePhoto($imageFileType, $link);
         header('Location: detail.php?img_nomFich=' . $new_path);
@@ -64,3 +66,4 @@ if (isset($_POST['ajouter'])) {
     <input type="submit" value="Envoyer" name="ajouter">
 </form>
 </body>
+</html>

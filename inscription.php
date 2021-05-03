@@ -20,7 +20,7 @@ if (isset($_POST["valider"])) {
     if ($hashMdp == $hashConfirmMdp) {
         if ($available) {
             register($pseudo, $hashMdp, $link);
-            header('Location: index.php?subscribe=yes');
+            header('Location: index.php');
         } else {
             $stateMsg = "Le pseudo demand&eacute; est d&eacute;j&agrave; utilis&eacute;";
         }

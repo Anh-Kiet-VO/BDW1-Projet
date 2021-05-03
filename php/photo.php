@@ -42,7 +42,7 @@ function detail($imageNom, $link)
     return $assocTabDetail;
 }
 
-function addPhoto($imageNom, $imageDesc, $catId, $link)
+function addPhoto($imageNom, $imageDesc, $catId, $pseudo, $link)
 {
     /* AJOUTE LA PHOTO SUR LE SERVEUR */
     $target_dir = "./image/";
@@ -91,7 +91,7 @@ function addPhoto($imageNom, $imageDesc, $catId, $link)
             echo "Le fichier ". htmlspecialchars(basename($_FILES["fileToUpload"]["name"])). " a bien été téléchargé.\n";
 
             /* AJOUTE LA PHOTO DANS LA BASE DE DONNEES */
-            $query = "INSERT INTO Photo(nomFich, description, catId) VALUES ('" . $new_target_file . "', '" . $imageDesc . "', " . $catId . ")";
+            $query = "INSERT INTO Photo(nomFich, description, catId, pseudo) VALUES ('" . $new_target_file . "', '" . $imageDesc . "', " . $catId . ", '" . $pseudo . "')";
             executeUpdate($link, $query);
         } else {
             echo "Erreur lors du téléchargement du fichier.\n";

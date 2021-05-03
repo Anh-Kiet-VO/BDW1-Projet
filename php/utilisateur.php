@@ -13,7 +13,7 @@ function checkAvailability($pseudo, $link)
 array('red', 'green', 'blue', 'black', 'yellow', 'orange') et enregistre le nouvel utilisateur dans la relation utilisateur via la connexion*/
 function register($pseudo, $hashPwd, $link)
 {
-    $query = "INSERT INTO Utilisateur VALUES ('". $pseudo ."', '". $hashPwd ."', 'disconnected', 'user');";
+    $query = "INSERT INTO Utilisateur VALUES ('". $pseudo ."', '". $hashPwd ."', 'disconnected', 'user', 0);";
     executeUpdate($link, $query);
 }
 

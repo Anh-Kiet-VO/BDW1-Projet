@@ -6,8 +6,6 @@ require_once 'php/bd.php';
 require_once 'php/utilisateur.php';
 require_once 'php/photo.php';
 
-print_r($_SESSION);
-
 $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
 
 $imageNom = $_GET["img_nomFich"];
@@ -22,20 +20,19 @@ function displayPhoto($nomFich)
     echo $html;
 }
 
-echo "<br />";
-
 if (empty($_SESSION)) {
-  $connectState = 0;
+    $connectState = 0;
 } else {
-  $connectState = 1;
-  $utilisateur = $_SESSION["user"];
-  if (!empty($_SESSION["user"])) {
-      $time = time() - $_SESSION["time"];
-      $readableTime = timeElapsed($time);
-      echo $readableTime;
-      echo "<br />";
-      echo "Bonjour " . $utilisateur;
-  }
+    $connectState = 1;
+    $utilisateur = $_SESSION["user"];
+    $tempsConnexion = getTempsConnexion($utilisateur, $link);
+    if (!empty($_SESSION["user"])) {
+        $time = time() - $tempsConnexion;
+        $readableTime = timeElapsed($time);
+        echo $readableTime;
+        echo "<br />";
+        echo "Bonjour " . $utilisateur;
+    }
 }
 
 ?>

@@ -1,28 +1,61 @@
 <?php
 
-/*Cette fonction prend en entrée un pseudo à ajouter à la relation administrateur et une connexion et
-retourne vrai si le pseudo est disponible (pas d'occurence dans les données existantes), faux sinon*/
-function checkAvailabilityAdmin($pseudo, $link)
+//A commenter
+function checkIfAdmin($pseudo, $link)
 {
-    $query = "SELECT * FROM Administrateur WHERE adminPseudo = '". $pseudo ."';";
+    $query = "SELECT * FROM Utilisateur WHERE pseudo = '" . $pseudo ."' AND role = 'admin'";
     $result = executeQuery($link, $query);
-    return mysqli_num_rows($result) == 0;
+    return mysqli_num_rows($result) == 1;
 }
 
-/*Cette fonction prend en entrée un pseudo et un mot de passe, associe une couleur aléatoire dans le tableau de taille fixe
-array('red', 'green', 'blue', 'black', 'yellow', 'orange') et enregistre le nouvel administrateur dans la relation administrateur via la connexion*/
-function registerAdmin($pseudo, $hashPwd, $link)
+function getAllAdmins($link)
 {
-	$query = "INSERT INTO Administrateur(adminPseudo, adminMdp) VALUES ('". $pseudo ."', '". $hashPwd ."', 'disconnected', 'user');";
-	executeUpdate($link, $query);
+    $query = "SELECT pseudo FROM Utilisateur WHERE role = 'admin';";
+    $adminsList = array();
+    foreach ($link->query($query) as $row) {
+        $adminsList[] = $row['pseudo'];
+    }
+    return $adminsList;
 }
 
-/*Cette fonction prend en entrée un pseudo et mot de passe et renvoie vrai si l'administrateur existe (au moins un tuple dans le résultat), faux sinon*/
-function getUserAdmin($pseudo, $hashPwd, $link)
+function getNumUsers($link)
 {
-	$query = "SELECT * FROM Administrateur WHERE adminPseudo = '" . $pseudo . "' AND adminMdp = '" . $hashPwd . "';";
+    $query = "SELECT COUNT(pseudo) AS numUsers FROM Utilisateur";
     $result = executeQuery($link, $query);
-    return mysqli_num_rows($result) >= 1;
+    $numUsers = $result->fetch_assoc();
+
+    return $numUsers['numUsers'];
 }
 
-?>
+function getNumUsersPhotos($link)
+{
+    $query = "SELECT U.pseudo, COUNT(P.photoId) AS numPhotos FROM Utilisateur U JOIN Photo P ON U.pseudo = P.pseudo GROUP BY U.pseudo";
+    $result = executeQuery($link, $query);
+
+    $tabUsersPhotos = array();
+
+    $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    foreach ($rows as $row) {
+        $tabUsersPhotos[$row["pseudo"]] = $row["numPhotos"];
+    }
+
+    return $tabUsersPhotos;
+}
+
+function getNumCatPhotos($link)
+{
+    $query = "SELECT C.nomCat, COUNT(P.photoId) AS numPhotos FROM Categorie C JOIN Photo P ON C.catId = P.catId GROUP BY C.nomCat";
+
+    $result = executeQuery($link, $query);
+
+    $tabCatPhotos = array();
+
+    $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    foreach ($rows as $row) {
+        $tabCatPhotos[$row["nomCat"]] = $row["numPhotos"];
+    }
+
+    return $tabCatPhotos;
+}
