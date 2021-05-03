@@ -87,6 +87,8 @@ if (isset($_POST['submit'])) {
   <meta charset="UTF-8">
   <title>Application mini-Pinterest</title>
   <link rel="stylesheet" href="css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
   <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 </head>
 
@@ -108,9 +110,16 @@ if (isset($_POST['submit'])) {
       <input type="submit" name="submit" value="Get Selected Values" />
       </form>
     </div>
-    <div class="galerie" data-masonry='{ "itemSelector": "img", "columnWidth": 200 }'><?php displayPhotos($pathsCatList); ?></div>
+    <div class="galerie"><?php displayPhotos($pathsCatList); ?></div>
   </div>
 
+  <script>
+  $(".galerie").imagesLoaded(function() {
+    $(".galerie").masonry({
+      itemSelector: "img"
+    });
+  });
+  </script>
 </body>
 
 </html>
