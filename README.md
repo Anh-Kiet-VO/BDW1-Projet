@@ -2,10 +2,14 @@
 
 ## À faire
 
-* [ ] Profil Admin / Utilisateur : gérer les utilisateurs
-* [ ] Bouton S'inscrire à enlever
+* [ ] Detail.php : options spéciales pour les admins (modifier et supprimer)
+* [ ] Index.php : cacher les bons boutons en fonction du rôle
+* [ ] profilUtilisateur.php : gérer les données personnelles (mdp, à voir pour pseudo)
+* [ ] profilUtilisateur.php : visualiser, modifier et supprimer ses photos => si c'est un user + si c'est sa photo, on montre les options
+* [ ] profilUtilisateur.php : cacher ses photos ?
 * [ ] Problème du temps de connexion
-* [ ] JS disposition des images
+
+
 
 ## À propos
 
