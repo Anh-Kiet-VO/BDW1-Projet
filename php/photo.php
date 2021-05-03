@@ -51,52 +51,54 @@ function addPhoto($imageNom, $imageDesc, $catId, $link)
     $new_target_file = $target_dir . "temp";
     $uploadOk = 1;
 
-    // Check if image file is a actual image or fake image
+    // Vérifie si le fichier est bien une image ou non
     if (isset($_POST["submit"])) {
         $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
         if ($check !== false) {
-            echo "File is an image - " . $check["mime"] . ".";
+            echo "Le fichier est une image correcte - " . $check["mime"] . ".";
             $uploadOk = 1;
         } else {
-            echo "File is not an image.";
+            echo "Le fichier n'est pas une image.";
             $uploadOk = 0;
         }
     }
 
-    // Check if file already exists
+    // Vérifie si le fichier existe
     if (file_exists($new_target_file)) {
-        echo "Sorry, file already exists.";
+        echo "Erreur, le fichier existe déjà.\n";
         $uploadOk = 0;
     }
 
-    // Check file size
+    // Vérifie la taille du fichier
     if ($_FILES["fileToUpload"]["size"] > 100000) {
-        echo "Sorry, your file is too large.";
+        echo "Erreur, le fichier est trop volumineux.\n";
         $uploadOk = 0;
     }
 
-    // Allow certain file formats
+    // Autorise seulement certains formats
     if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
   && $imageFileType != "gif") {
-        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        echo "Erreur, seuls les formats JPG, JPEG, PNG et GIF sont autorisés.\n";
         $uploadOk = 0;
     }
 
-    // Check if $uploadOk is set to 0 by an error
+    // Vérifie si $uploadOk est à 0 à cause d'une erreur
     if ($uploadOk == 0) {
-        echo "Sorry, your file was not uploaded.";
-    // if everything is ok, try to upload file
+        echo "Erreur, le fichier n'a pas été téléchargé.\n";
+    // Si tout est ok ($upload == 1) alors on essaie de télécharger le fichier
     } else {
         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $new_target_file)) {
-            echo "The file ". htmlspecialchars(basename($_FILES["fileToUpload"]["name"])). " has been uploaded.";
+            echo "Le fichier ". htmlspecialchars(basename($_FILES["fileToUpload"]["name"])). " a bien été téléchargé.\n";
+
+            /* AJOUTE LA PHOTO DANS LA BASE DE DONNEES */
+            $query = "INSERT INTO Photo(nomFich, description, catId) VALUES ('" . $new_target_file . "', '" . $imageDesc . "', " . $catId . ")";
+            executeUpdate($link, $query);
         } else {
-            echo "Sorry, there was an error uploading your file.";
+            echo "Erreur lors du téléchargement du fichier.\n";
         }
     }
 
-    /* AJOUTE LA PHOTO SUR LA BASE DE DONNEES */
-    $query = "INSERT INTO Photo(nomFich, description, catId) VALUES ('" . $new_target_file . "', '" . $imageDesc . "', " . $catId . ")";
-    executeUpdate($link, $query);
+    return $uploadOk;
 }
 
 function getTempPhotoId($link)

@@ -15,9 +15,9 @@ if (isset($_POST["valider"])) {
 
     $exist = getUser($pseudo, $hashMdp, $link);
     if ($exist) {
-        setConnected($pseudo, $link);
+        $tempsConnexion = time();
+        setConnected($pseudo, $tempsConnexion, $link);
         $_SESSION["user"] = $pseudo;
-        $_SESSION["time"] = time();
         header('Location: index.php');
     } else {
         $stateMsg = "Le couple pseudo/mot de passe ne correspond à aucun utilisateur enregistré";

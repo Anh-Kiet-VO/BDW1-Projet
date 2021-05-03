@@ -19,9 +19,9 @@ function register($pseudo, $hashPwd, $link)
 
 /*Cette fonction prend en entrée un pseudo d'utilisateur et change son état en 'connected' dans la relation
 utilisateur via la connexion*/
-function setConnected($pseudo, $link)
+function setConnected($pseudo, $tempsConnexion, $link)
 {
-    $query = "UPDATE Utilisateur SET etat = 'connected' WHERE pseudo = '" . $pseudo . "';";
+    $query = "UPDATE Utilisateur SET etat = 'connected', tempsConnexion = " . $tempsConnexion . " WHERE pseudo = '" . $pseudo . "';";
     executeUpdate($link, $query);
 }
 
@@ -48,17 +48,25 @@ function getConnectedUsers($link)
 utilisateur via la connexion*/
 function setDisconnected($pseudo, $link)
 {
-    $query = "UPDATE Utilisateur SET etat = 'disconnected' WHERE pseudo = '" . $pseudo . "';";
+    $query = "UPDATE Utilisateur SET etat = 'disconnected', tempsConnexion = 0 WHERE pseudo = '" . $pseudo . "';";
     executeUpdate($link, $query);
+}
+
+function getTempsConnexion($utilisateur, $link)
+{
+    $query = "SELECT tempsConnexion FROM Utilisateur WHERE pseudo = '" . $utilisateur . "'";
+    $temps = executeQuery($link, $query);
+    $tabTemps = mysqli_fetch_assoc($temps);
+    return $tabTemps['tempsConnexion'];
 }
 
 function timeElapsed($secs)
 {
     $bit = array(
-        'h' => $secs / 3600 % 24,
-        'min' => $secs / 60 % 60,
-        'sec' => $secs % 60
-        );
+    'h' => $secs / 3600 % 24,
+    'min' => $secs / 60 % 60,
+    'sec' => $secs % 60
+    );
 
     foreach ($bit as $k => $v) {
         if ($v > 0) {

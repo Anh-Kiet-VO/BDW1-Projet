@@ -13,10 +13,12 @@ if (empty($_SESSION)) {
 } else {
     $connectState = 1;
     $utilisateur = $_SESSION["user"];
+    $tempsConnexion = getTempsConnexion($utilisateur, $link);
     if (!empty($_SESSION["user"])) {
-        $time = time() - $_SESSION["time"];
+        $time = time() - $tempsConnexion;
         $readableTime = timeElapsed($time);
         echo $readableTime;
+        //echo $tempsConnexion;
         echo "<br />";
         echo "Bonjour " . $utilisateur;
     }
@@ -39,9 +41,9 @@ if (isset($_POST['deconnexion'])) {
 function connectButton($connectState)
 {
     if ($connectState == 0) {
-        echo '<a class="boutonNav" href="./connexion.php">se connecter</a>';
+        echo '<a class="boutonNav" href="./connexion.php">se connecter</a> <a class="boutonInscrip" href="./inscription.php">s\'inscrire</a>';
     } elseif ($connectState == 1) {
-        echo '<form action="index.php" method="POST"><input class="button" type="submit" name="deconnexion" value="Se déconnecter"></form>';
+        echo '<form action="index.php" method="POST"><input class="button" type="submit" name="deconnexion" value="Se déconnecter"></form> <a class="boutonNav" href="./ajouter.php">ajouter une image</a>';
     }
 }
 
@@ -94,7 +96,7 @@ if (isset($_POST['submit'])) {
 
 <body>
 
-  <div class="navigation"><span class="logo">mini-pinterest.</span><a class="boutonNav" href="./index.php">accueil</a> <?php connectButton($connectState); ?> <a class="boutonInscrip" href="./inscription.php">s'inscrire</a></div>
+  <div class="navigation"><span class="logo">mini-pinterest.</span><a class="boutonNav" href="./index.php">accueil</a> <?php connectButton($connectState); ?></div>
 
   <div class="blocprincipal">
     <div class="categories">

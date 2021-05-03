@@ -27,9 +27,11 @@ if (isset($_POST['ajouter'])) {
     $getDescription = $_POST["description"];
     $getCategorie = $_POST["categorie"];
     $imageFileType = strtolower(pathinfo($getImage, PATHINFO_EXTENSION));
-    addPhoto($getImage, $getDescription, $getCategorie, $link);
-    $new_path = renamePhoto($imageFileType, $link);
-    header('Location: detail.php?img_nomFich=' . $new_path);
+    $uploadOk = addPhoto($getImage, $getDescription, $getCategorie, $link);
+    if ($uploadOk == 1) {
+        $new_path = renamePhoto($imageFileType, $link);
+        header('Location: detail.php?img_nomFich=' . $new_path);
+    }
 }
 ?>
 
