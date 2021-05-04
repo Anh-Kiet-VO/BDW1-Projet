@@ -3,8 +3,11 @@
 
 :root {
   --black: #1b1b1b;
+  --lightgrey: #dedede;
+  --grey: #797979;
   --color1: #f1f9ff;
   --color2: #1a8ac9;
+  --transition: .4s ease-in-out;
 }
 
 html div {
@@ -24,55 +27,137 @@ body {
     -----------------------  */
 .navigation {
   width: 100%;
-  display: grid;
-  grid-template-columns: auto 12% 12% 12%;
-  justify-items: center;
-  align-items: center;
+  display: flex;
+  align-content: center;
   padding: 20px 30px;
-  background: var(--color1);
+  background: none;
+  border-bottom: 1px solid var(--lightgrey);
 }
 
-.navigation a {
+.navigation .nav-utilisateur {
+  width: 40%;
+  font-size: 1.3em;
+}
+
+.navigation .nav-utilisateur i {
+  color: var(--grey);
+  font-size: 0.9em;
+}
+
+.navigation .nav-boutons {
+  width: 60%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  align-content: center;
+}
+
+.navigation form {
+  margin: 0;
+}
+
+.navigation a, .navigation input {
   font-weight: 700;
   text-transform: uppercase;
   font-size: 1em;
   color: var(--black);
+  margin: 0 10px;
   text-decoration: none;
+  transition: var(--transition);
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
-.navigation a.boutonNav {
+.navigation .boutonNav {
   padding: 2px 5px;
   border-bottom: 2px solid var(--black);
 }
 
-.navigation a.boutonNav:hover {
-  border-bottom: 2px solid var(--color2);
-  color: var(--color2);
+.navigation .boutonNav:hover {
+  border-bottom: 2px solid var(--grey);
+  color: var(--grey);
 }
 
-.navigation a.boutonInscrip {
+.navigation .boutonInscrip {
   border: 2px solid var(--black);
   padding: 8px 20px;
 }
 
-.navigation a.boutonInscrip:hover {
-  border: 2px solid var(--color2);
-  color: var(--color2);
+.navigation .boutonInscrip:hover {
+  border: 2px solid var(--grey);
+  color: var(--grey);
 }
 
-.logo {
+/*  -----------------------
+       CATEGORIES
+    -----------------------  */
+.categories {
   width: 100%;
+  padding: 30px 30px 10px 30px;
+  text-align: center;
+}
+
+.categories select {
+  width: 150px;
+  border: 1px solid var(--black);
+  padding: 3px 0;
+  color: inherit;
+}
+
+.categories form {
+  margin: 5px 0;
+}
+
+.categories input {
+  background: var(--black);
+  border: none;
+  padding: 5px 10px;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.categories input:hover {
+  background: var(--grey);
+}
+
+.categories .nom-categorie {
+  width: 100%;
+  margin-top: 20px;
   text-align: left;
-  font-family: 'Elsie';
-  font-size: 2.3em;
-  letter-spacing: -.1em;
+  font-size: 1.4em;
+}
+
+.categories .nom-categorie span {
+  background: var(--black);
+  color: white;
+  padding: 0 5px;
 }
 
 /*  -----------------------
        GALERIE DE PHOTOS
     -----------------------  */
-.galerie {}
+.galerie {
+  width: 100%;
+  height: auto;
+  padding: 30px;
+  margin: auto;
+}
+
+.gutter-size {
+  width: 15px;
+}
 
 .galerie img {
-  max-width: 200px;
+  max-width: 185px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  transition: filter var(--transition);
+}
+
+.galerie img:hover {
+  filter: grayscale(0.4) brightness(0.7);
 }

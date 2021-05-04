@@ -8,19 +8,31 @@ require_once 'php/photo.php';
 
 $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
 
-if (empty($_SESSION)) {
-    $connectState = 0;
-} else {
-    $connectState = 1;
-    $utilisateur = $_SESSION["user"];
-    $tempsConnexion = getTempsConnexion($utilisateur, $link);
-    if (!empty($_SESSION["user"])) {
+function getConnectState()
+{
+    if (empty($_SESSION)) {
+        $connectState = 0;
+    } else {
+        $connectState = 1;
+    }
+
+    return $connectState;
+}
+
+$connectState = getConnectState();
+
+function showUser($connectState, $link)
+{
+    if ($connectState == 1) {
+        $utilisateur = $_SESSION["user"];
+        $tempsConnexion = getTempsConnexion($utilisateur, $link);
         $time = time() - $tempsConnexion;
         $readableTime = timeElapsed($time);
-        echo $readableTime;
         //echo $tempsConnexion;
-        echo "<br />";
-        echo "Bonjour " . $utilisateur;
+
+        echo "Bonjour <b>" . $utilisateur . "</b> <i>(connecté depuis " . $readableTime . ")</i>";
+    } else {
+        echo "";
     }
 }
 
@@ -43,7 +55,7 @@ function connectButton($connectState)
     if ($connectState == 0) {
         echo '<a class="boutonNav" href="./connexion.php">se connecter</a> <a class="boutonInscrip" href="./inscription.php">s\'inscrire</a>';
     } elseif ($connectState == 1) {
-        echo '<form action="index.php" method="POST"><input class="button" type="submit" name="deconnexion" value="Se déconnecter"></form> <a class="boutonNav" href="./ajouter.php">ajouter une image</a>';
+        echo '<a class="boutonNav" href="./ajouter.php">ajouter une image</a> <form action="index.php" method="POST"><input class="boutonNav" type="submit" name="deconnexion" value="Se déconnecter"></form>';
     }
 }
 
@@ -55,26 +67,34 @@ function displayPhotos($array)
     }
 }
 
-if (isset($_POST['submit'])) {
-    $selected_val = $_POST['categorie'];
+$nomCat = "Tout";
 
-    switch ($selected_val) {
+if (isset($_POST['submit'])) {
+    $selectedVal = $_POST['categorie'];
+
+    switch ($selectedVal) {
       case 'Tout':
+        $nomCat = $selectedVal;
         $pathsCatList = getImagesPaths($link);
         break;
       case 'Chiens':
+        $nomCat = $selectedVal;
         $pathsCatList = getImgCategorie($link, 1);
         break;
       case 'Chats':
+        $nomCat = $selectedVal;
         $pathsCatList = getImgCategorie($link, 2);
         break;
       case 'Chèvres':
+        $nomCat = $selectedVal;
         $pathsCatList = getImgCategorie($link, 3);
         break;
       case 'Singes':
+        $nomCat = $selectedVal;
         $pathsCatList = getImgCategorie($link, 4);
         break;
       case 'Quokkas':
+        $nomCat = $selectedVal;
         $pathsCatList = getImgCategorie($link, 5);
         break;
     }
@@ -96,10 +116,18 @@ if (isset($_POST['submit'])) {
 
 <body>
 
-  <div class="navigation"><span class="logo">mini-pinterest.</span><a class="boutonNav" href="./index.php">accueil</a> <?php connectButton($connectState); ?></div>
+  <div class="navigation">
+    <div class="nav-utilisateur">
+      <?php showUser($connectState, $link); ?>
+    </div>
+    <div class="nav-boutons">
+      <a class="boutonNav" href="./index.php">accueil</a>
+      <?php connectButton($connectState); ?>
+    </div>
+  </div>
 
   <div class="blocprincipal">
-    <div class="categories">
+    <div class="categories">Choisir une catégorie :
       <form action="index.php" method="POST">
         <select name="categorie">
         <option value="Tout">Tout</option>
@@ -109,16 +137,20 @@ if (isset($_POST['submit'])) {
         <option value="Singes">Singes</option>
         <option value="Quokkas">Quokkas</option>
         </select>
-      <input type="submit" name="submit" value="Get Selected Values" />
+      <input type="submit" name="submit" value="Valider" />
       </form>
+      <div class="nom-categorie"><span>Catégorie :</span> <?php echo $nomCat; ?></div>
     </div>
-    <div class="galerie"><?php displayPhotos($pathsCatList); ?></div>
+    <div class="galerie"><div class="gutter-size"></div><?php displayPhotos($pathsCatList); ?></div>
   </div>
 
   <script>
   $(".galerie").imagesLoaded(function() {
     $(".galerie").masonry({
-      itemSelector: "img"
+      columnWidth: "img",
+      itemSelector: "img",
+      gutter: ".gutter-size",
+      fitWidth: true
     });
   });
   </script>
