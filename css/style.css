@@ -5,8 +5,7 @@
   --black: #1b1b1b;
   --lightgrey: #dedede;
   --grey: #797979;
-  --color1: #f1f9ff;
-  --color2: #1a8ac9;
+  --error: #f51f1f;
   --transition: .4s ease-in-out;
 }
 
@@ -20,6 +19,26 @@ body {
   color: var(--black);
   line-height: 1.3;
   margin: 0;
+}
+
+a {
+  color: var(--black);
+}
+
+/* Boutons */
+.categories input, .connection input.button, .optionsBoutons input {
+  background: var(--black);
+  border: none;
+  padding: 5px 10px;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.categories input:hover, .connection input.button:hover, .optionsBoutons input:hover {
+  background: var(--grey);
 }
 
 /*  -----------------------
@@ -56,7 +75,17 @@ body {
   margin: 0;
 }
 
-.navigation a, .navigation input {
+.nav-utilisateur a {
+  text-decoration: none;
+  font-weight: bold;
+  transition: var(--transition);
+}
+
+.nav-utilisateur a:hover {
+  color: var(--grey);
+}
+
+.nav-boutons a, .navigation input {
   font-weight: 700;
   text-transform: uppercase;
   font-size: 1em;
@@ -109,21 +138,6 @@ body {
   margin: 5px 0;
 }
 
-.categories input {
-  background: var(--black);
-  border: none;
-  padding: 5px 10px;
-  color: white;
-  font-weight: bold;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.categories input:hover {
-  background: var(--grey);
-}
-
 .categories .nom-categorie {
   width: 100%;
   margin-top: 20px;
@@ -135,6 +149,44 @@ body {
   background: var(--black);
   color: white;
   padding: 0 5px;
+}
+
+/*  -----------------------
+          CONNEXION
+    -----------------------  */
+.connection {
+  width: 400px;
+  margin: 30px auto;
+  border: 1px solid var(--black);
+  padding: 30px;
+  text-align: center;
+}
+
+.connection a {
+  transition: var(--transition);
+}
+
+.connection a:hover {
+  color: var(--grey);
+}
+
+.connec-titre {
+  width: 100%;
+  text-align: center;
+  font-size: 1.3em;
+  font-weight: bold;
+  margin: 0 0 15px 0;
+}
+
+.loginInfo, .modifInfo {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.errorMsg {
+  color: var(--error);
+  margin-bottom: 20px;
 }
 
 /*  -----------------------
@@ -160,4 +212,53 @@ body {
 
 .galerie img:hover {
   filter: grayscale(0.4) brightness(0.7);
+}
+
+/*  -----------------------
+       DETAIL D'UNE PHOTO
+    -----------------------  */
+.detailphoto {
+  width: fit-content;
+  margin: 30px auto;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(3, auto);
+  align-items: center;
+  gap: 10px;
+}
+
+.photo {
+  grid-column: 1 / 2;
+  grid-row: 1 / 4;
+}
+
+.photo img {
+  width: auto;
+  max-height: 350px;
+}
+
+.nomImage {
+  align-self: end;
+}
+
+.description {}
+
+.categorie {
+  align-self: start;
+}
+
+.optionsBoutons {
+  width: fit-content;
+  margin: auto;
+}
+
+.formModif form {
+  width: 100%;
+}
+
+.formModif {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+  margin: 30px auto;
 }

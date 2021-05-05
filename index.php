@@ -3,17 +3,27 @@
 <?php
 session_start();
 require_once 'php/bd.php';
+require_once 'php/administrateur.php';
 require_once 'php/utilisateur.php';
 require_once 'php/photo.php';
 
+//print_r($_SESSION);
+
 $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
+$utilisateur = "";
 
 function getConnectState()
 {
+    global $utilisateur, $link;
     if (empty($_SESSION)) {
         $connectState = 0;
-    } else {
+    } elseif (checkIfAdmin($_SESSION["user"], $link)) {
+        //si c'est un admin
         $connectState = 1;
+        $utilisateur = $_SESSION["user"];
+    } else {
+        //si c'est un user
+        $connectState = 2;
     }
 
     return $connectState;
@@ -21,18 +31,39 @@ function getConnectState()
 
 $connectState = getConnectState();
 
+
+function profilButton($connectState)
+{
+    global $utilisateur;
+    if ($connectState == 2) {
+        echo 'Bonjour <a href="./profilUtilisateur.php">' . $utilisateur . '</a> ';
+    } else {
+        echo 'Bonjour <a href="./profilAdmin.php">' . $utilisateur . '</a> ';
+    }
+}
+
 function showUser($connectState, $link)
 {
+    global $utilisateur;
     if ($connectState == 1) {
-        $utilisateur = $_SESSION["user"];
-        $tempsConnexion = getTempsConnexion($utilisateur, $link);
-        $time = time() - $tempsConnexion;
-        $readableTime = timeElapsed($time);
-        //echo $tempsConnexion;
+        profilButton($connectState);
 
-        echo "Bonjour <b>" . $utilisateur . "</b> <i>(connecté depuis " . $readableTime . ")</i>";
+        if (isset($_SESSION["logged"])) {
+            $time = time() - $_SESSION["logged"];
+            $readableTime = timeElapsed($time);
+            echo "<i>(connecté depuis " . $readableTime . ")</i>";
+        }
     } else {
         echo "";
+    }
+}
+
+function connectButton($connectState)
+{
+    if ($connectState == 0) {
+        echo '<a class="boutonNav" href="./connexion.php">se connecter</a> <a class="boutonInscrip" href="./inscription.php">s\'inscrire</a>';
+    } elseif (($connectState == 1) || ($connectState == 2)) {
+        echo '<a class="boutonNav" href="./ajouter.php">ajouter une image</a> <form action="index.php" method="POST"><input class="boutonNav" type="submit" name="deconnexion" value="Se déconnecter"></form>';
     }
 }
 
@@ -48,15 +79,6 @@ if (isset($_POST['deconnexion'])) {
     setDisconnected($utilisateur, $link);
     session_destroy();
     header('Location: index.php');
-}
-
-function connectButton($connectState)
-{
-    if ($connectState == 0) {
-        echo '<a class="boutonNav" href="./connexion.php">se connecter</a> <a class="boutonInscrip" href="./inscription.php">s\'inscrire</a>';
-    } elseif ($connectState == 1) {
-        echo '<a class="boutonNav" href="./ajouter.php">ajouter une image</a> <form action="index.php" method="POST"><input class="boutonNav" type="submit" name="deconnexion" value="Se déconnecter"></form>';
-    }
 }
 
 function displayPhotos($array)

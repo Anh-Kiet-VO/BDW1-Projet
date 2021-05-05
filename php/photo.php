@@ -123,3 +123,21 @@ function renamePhoto($fileType, $link)
 
     return $new_path;
 }
+
+function deletePhoto($imageNom, $link)
+{
+    /* SUPPRIME DU SERVEUR */
+    unlink($imageNom);
+
+    /* SUPPRIME DE LA BASE DE DONNEES */
+    $query = "DELETE FROM Photo WHERE nomFich = '" . $imageNom . "'";
+    executeUpdate($link, $query);
+
+    $imageNom = str_replace(array( '..', '/', '\\', ':' ), '', $imageNom);
+}
+
+function editPhoto($imageNom, $imageDesc, $catId, $link)
+{
+    $query = "UPDATE Photo SET description = '" . $imageDesc . "', catId = " . $catId . " WHERE nomFich = '" . $imageNom . "'";
+    executeUpdate($link, $query);
+}

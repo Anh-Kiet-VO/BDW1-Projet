@@ -13,7 +13,7 @@ function checkAvailability($pseudo, $link)
 array('red', 'green', 'blue', 'black', 'yellow', 'orange') et enregistre le nouvel utilisateur dans la relation utilisateur via la connexion*/
 function register($pseudo, $hashPwd, $link)
 {
-    $query = "INSERT INTO Utilisateur VALUES ('". $pseudo ."', '". $hashPwd ."', 'disconnected', 'user', 0);";
+    $query = "INSERT INTO Utilisateur VALUES ('". $pseudo ."', '". $hashPwd ."', 'disconnected', 'user');";
     executeUpdate($link, $query);
 }
 
@@ -21,7 +21,7 @@ function register($pseudo, $hashPwd, $link)
 utilisateur via la connexion*/
 function setConnected($pseudo, $tempsConnexion, $link)
 {
-    $query = "UPDATE Utilisateur SET etat = 'connected', tempsConnexion = " . $tempsConnexion . " WHERE pseudo = '" . $pseudo . "';";
+    $query = "UPDATE Utilisateur SET etat = 'connected' WHERE pseudo = '" . $pseudo . "';";
     executeUpdate($link, $query);
 }
 
@@ -48,7 +48,7 @@ function getConnectedUsers($link)
 utilisateur via la connexion*/
 function setDisconnected($pseudo, $link)
 {
-    $query = "UPDATE Utilisateur SET etat = 'disconnected', tempsConnexion = 0 WHERE pseudo = '" . $pseudo . "';";
+    $query = "UPDATE Utilisateur SET etat = 'disconnected' WHERE pseudo = '" . $pseudo . "';";
     executeUpdate($link, $query);
 }
 
@@ -74,5 +74,9 @@ function timeElapsed($secs)
         }
     }
 
-    return join(' ', $ret);
+    if (empty($bit['h']) && empty($bit['min']) && empty($bit['sec'])) {
+        return "0sec";
+    } else {
+        return join(' ', $ret);
+    }
 }
