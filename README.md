@@ -3,11 +3,12 @@
 ## À faire
 
 * [ ] **Detail.php** : options spéciales pour les admins (modifier et supprimer)
-* [ ] **Index.php** : cacher les bons boutons en fonction du rôle
+* [X] **Index.php** : cacher les bons boutons en fonction du rôle
+* [ ] **Index.php** : mettre le rôle à côté du nom d'utilisateur
 * [ ] **profilUtilisateur.php** : gérer les données personnelles (mdp, à voir pour pseudo)
 * [ ] **profilUtilisateur.php** : visualiser, modifier et supprimer ses photos => si c'est un user + si c'est sa photo, on montre les options
 * [ ] **profilUtilisateur.php** : cacher ses photos ?
-* [ ] Problème du temps de connexion
+* [X] Problème du temps de connexion
 
 
 
