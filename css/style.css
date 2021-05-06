@@ -6,6 +6,7 @@
   --lightgrey: #dedede;
   --grey: #797979;
   --error: #f51f1f;
+  --confirm: #aee719;
   --transition: .4s ease-in-out;
 }
 
@@ -26,7 +27,8 @@ a {
 }
 
 /* Boutons */
-.categories input, .connection input.button, .optionsBoutons input {
+input.button, button.button {
+  height: fit-content;
   background: var(--black);
   border: none;
   padding: 5px 10px;
@@ -37,7 +39,7 @@ a {
   transition: var(--transition);
 }
 
-.categories input:hover, .connection input.button:hover, .optionsBoutons input:hover {
+input.button:hover, button.button:hover {
   background: var(--grey);
 }
 
@@ -185,8 +187,10 @@ a {
 }
 
 .errorMsg {
+  width: fit-content;
   color: var(--error);
   margin-bottom: 20px;
+  font-weight: bold;
 }
 
 /*  -----------------------
@@ -224,12 +228,19 @@ a {
   grid-template-columns: repeat(2, auto);
   grid-template-rows: repeat(3, auto);
   align-items: center;
-  gap: 10px;
+  gap: 20px;
+}
+
+.confirmMsg {
+  width: fit-content;
+  margin: 30px auto 0 auto;
+  color: var(--confirm);
+  font-weight: bold;
 }
 
 .photo {
   grid-column: 1 / 2;
-  grid-row: 1 / 4;
+  grid-row: 1 / 5;
 }
 
 .photo img {
@@ -237,28 +248,21 @@ a {
   max-height: 350px;
 }
 
-.nomImage {
-  align-self: end;
-}
-
-.description {}
-
-.categorie {
-  align-self: start;
-}
-
 .optionsBoutons {
   width: fit-content;
   margin: auto;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 20px;
 }
 
-.formModif form {
-  width: 100%;
-}
-
-.formModif {
+#formModif {
   width: 300px;
-  display: flex;
   justify-content: space-between;
   margin: 30px auto;
+  display: none;
+}
+
+#formModif form {
+  width: 100%;
 }

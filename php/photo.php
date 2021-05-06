@@ -35,7 +35,7 @@ function getNomCat($imageNom, $catId, $link)
 // Récupère les informations d'une image en fonction de son Id
 function detail($imageNom, $link)
 {
-    $query = "SELECT nomFich, description, catId FROM Photo WHERE nomFich = '" . $imageNom . "';";
+    $query = "SELECT nomFich, description, catId, pseudo FROM Photo WHERE nomFich = '" . $imageNom . "';";
     $tabDetail = executeQuery($link, $query);
     $assocTabDetail = $tabDetail->fetch_assoc();
 

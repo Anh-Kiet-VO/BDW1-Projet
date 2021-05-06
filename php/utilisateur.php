@@ -52,31 +52,23 @@ function setDisconnected($pseudo, $link)
     executeUpdate($link, $query);
 }
 
-function getTempsConnexion($utilisateur, $link)
+function isAdminOrContributor($utilisateur, $imageNom, $link)
 {
-    $query = "SELECT tempsConnexion FROM Utilisateur WHERE pseudo = '" . $utilisateur . "'";
-    $temps = executeQuery($link, $query);
-    $tabTemps = mysqli_fetch_assoc($temps);
-    return $tabTemps['tempsConnexion'];
-}
-
-function timeElapsed($secs)
-{
-    $bit = array(
-    'h' => $secs / 3600 % 24,
-    'min' => $secs / 60 % 60,
-    'sec' => $secs % 60
-    );
-
-    foreach ($bit as $k => $v) {
-        if ($v > 0) {
-            $ret[] = $v . $k;
-        }
-    }
-
-    if (empty($bit['h']) && empty($bit['min']) && empty($bit['sec'])) {
-        return "0sec";
+    $query_admin = "SELECT * FROM Utilisateur WHERE pseudo = '" . $utilisateur . "' AND role = 'admin'";
+    $result_admin = executeQuery($link, $query_admin);
+    if (mysqli_num_rows($result_admin) == 1) {
+        $isAdmin = true;
     } else {
-        return join(' ', $ret);
+        $isAdmin = false;
     }
+
+    $query_contributor = "SELECT * FROM Utilisateur U JOIN Photo P ON U.pseudo = P.pseudo WHERE U.pseudo = '" . $utilisateur . "' AND P.nomFich = '" . $imageNom . "'";
+    $result_contributor = executeQuery($link, $query_contributor);
+    if (mysqli_num_rows($result_contributor) == 1) {
+        $isContributor = true;
+    } else {
+        $isContributor = false;
+    }
+
+    return ($isAdmin || $isContributor);
 }

@@ -1,10 +1,15 @@
 <!--     PAGE D'INSCRIPTION     -->
 
 <?php
-
 session_start();
 require_once 'php/bd.php';
+require_once 'php/nav_connexion.php';
+require_once 'php/administrateur.php';
 require_once 'php/utilisateur.php';
+require_once 'php/photo.php';
+
+$link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
+$connectState = getConnectState();
 
 $stateMsg = "";
 
@@ -12,8 +17,6 @@ if (isset($_POST["valider"])) {
     $pseudo = $_POST["pseudo"];
     $hashMdp = md5($_POST["mdp"]);
     $hashConfirmMdp = md5($_POST["confirmMdp"]);
-
-    $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
 
     $available = checkAvailability($pseudo, $link);
 
@@ -26,28 +29,6 @@ if (isset($_POST["valider"])) {
         }
     } else {
         $stateMsg = "Les mots de passe ne correspondent pas, veuillez réessayer";
-    }
-}
-
-function getConnectState()
-{
-    if (empty($_SESSION)) {
-        $connectState = 0;
-    } else {
-        $connectState = 1;
-    }
-
-    return $connectState;
-}
-
-$connectState = getConnectState();
-
-function connectButton($connectState)
-{
-    if ($connectState == 0) {
-        echo '<a class="boutonNav" href="./connexion.php">se connecter</a> <a class="boutonInscrip" href="./inscription.php">s\'inscrire</a>';
-    } elseif (($connectState == 1) || ($connectState == 2)) {
-        echo '<a class="boutonNav" href="./ajouter.php">ajouter une image</a> <form action="index.php" method="POST"><input class="boutonNav" type="submit" name="deconnexion" value="Se déconnecter"></form>';
     }
 }
 ?>
