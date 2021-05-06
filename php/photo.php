@@ -1,6 +1,6 @@
 <?php
 
-// Récupère le chemin de l'image
+// Récupère les chemin de toutes les images
 function getImagesPaths($link)
 {
     $query = "SELECT P.nomFich FROM Photo P";

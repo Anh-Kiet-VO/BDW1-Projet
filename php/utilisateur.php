@@ -33,6 +33,21 @@ function getUser($pseudo, $hashPwd, $link)
     return mysqli_num_rows($result) >= 1;
 }
 
+function getRole($pseudo, $link)
+{
+    $query = "SELECT role FROM Utilisateur WHERE pseudo = '" . $pseudo . "'";
+    $tabRole = executeQuery($link, $query);
+    $role = $tabRole->fetch_assoc();
+
+    return $role['role'];
+}
+
+function updateMdp($pseudo, $hashPwd, $link)
+{
+    $query = "UPDATE Utilisateur SET mdp = '" . $hashPwd . "' WHERE pseudo = '" . $pseudo . "'";
+    executeUpdate($link, $query);
+}
+
 /*Cette fonction renvoie un tableau (array) contenant tous les pseudos d'utilisateurs dont l'état est 'connected'*/
 function getConnectedUsers($link)
 {
@@ -71,4 +86,14 @@ function isAdminOrContributor($utilisateur, $imageNom, $link)
     }
 
     return ($isAdmin || $isContributor);
+}
+
+function getPhotosUser($utilisateur, $link)
+{
+    $query = "SELECT nomFich FROM Photo WHERE pseudo = '" . $utilisateur . "'";
+    $pathsPhotosUser = array();
+    foreach ($link->query($query) as $row) {
+        $pathsPhotosUser[] = $row['nomFich'];
+    }
+    return $pathsPhotosUser;
 }

@@ -189,7 +189,7 @@ input.button:hover, button.button:hover {
 .errorMsg {
   width: fit-content;
   color: var(--error);
-  margin-bottom: 20px;
+  padding-bottom: 20px;
   font-weight: bold;
 }
 
@@ -203,18 +203,24 @@ input.button:hover, button.button:hover {
   margin: auto;
 }
 
+.galerieProfil {
+  width: 100%;
+  height: auto;
+  padding: 30px;
+}
+
 .gutter-size {
   width: 15px;
 }
 
-.galerie img {
+.galerie img, .galerieProfil img {
   max-width: 185px;
   margin-bottom: 15px;
   border-radius: 8px;
   transition: filter var(--transition);
 }
 
-.galerie img:hover {
+.galerie img:hover, .galerieProfil img:hover {
   filter: grayscale(0.4) brightness(0.7);
 }
 
@@ -233,7 +239,8 @@ input.button:hover, button.button:hover {
 
 .confirmMsg {
   width: fit-content;
-  margin: 30px auto 0 auto;
+  margin: 0 auto;
+  padding: 30px 0 0 0;
   color: var(--confirm);
   font-weight: bold;
 }
@@ -265,4 +272,45 @@ input.button:hover, button.button:hover {
 
 #formModif form {
   width: 100%;
+}
+
+/*  -----------------------
+             PROFIL
+    -----------------------  */
+.blocProfil {
+  width: 100%;
+  padding: 30px 30px 0 30px;
+}
+
+.profil-titre {
+  width: 100%;
+}
+
+.profil-titre span {
+  font-size: 1.3em;
+  background: var(--black);
+  color: white;
+  padding: 0 5px;
+}
+
+.profil-titre button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+#profilInfo {
+  width: 100%;
+  padding: 30px 0;
+}
+
+#profilInfoModif {
+  display: none;
+  width: 100%;
+  padding: 20px 0 30px 0;
+}
+
+.mdpProfil {
+  margin: 10px 0;
 }

@@ -60,12 +60,12 @@ if (isset($_POST["valider"])) {
     echo $successMsg;
 } ?>
     <form action="inscription.php" method="POST">
-          <div class="formRegister">
-              <div class="loginInfo"><label for="pseudo">Pseudo : </label><input id="pseudo "type="text" name="pseudo"></div>
-              <div class="loginInfo"><label for"mdp">Mot de passe : </label><input type="password" name="mdp"></div>
-              <div class="loginInfo"><label for"mdp">Mot de passe : </label><input type="password" name="confirmMdp"></div>
-              <div style="text-align: center"><input class="button" type="submit" name="valider" value="S'inscrire"></div>
-          </div>
+      <div class="formRegister">
+        <div class="loginInfo"><label for="pseudo">Pseudo : </label><input id="pseudo "type="text" name="pseudo"></div>
+        <div class="loginInfo"><label for"mdp">Mot de passe : </label><input type="password" name="mdp"></div>
+        <div class="loginInfo"><label for"mdp">Mot de passe : </label><input type="password" name="confirmMdp"></div>
+        <div style="text-align: center"><input class="button" type="submit" name="valider" value="S'inscrire"></div>
+      </div>
     </form>
     <br />
     <a href="connexion.php">Déjà inscrit ?</a>

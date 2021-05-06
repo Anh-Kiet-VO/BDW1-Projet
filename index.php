@@ -73,6 +73,7 @@ if (isset($_POST['submit'])) {
   <meta charset="UTF-8">
   <title>Application mini-Pinterest</title>
   <link rel="stylesheet" href="css/style.css">
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
   <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
@@ -105,7 +106,10 @@ if (isset($_POST['submit'])) {
       </form>
       <div class="nom-categorie"><span>Catégorie :</span> <?php echo $nomCat; ?></div>
     </div>
-    <div class="galerie"><div class="gutter-size"></div><?php displayPhotos($pathsCatList); ?></div>
+    <div class="galerie">
+      <div class="gutter-size"></div>
+      <?php displayPhotos($pathsCatList); ?>
+    </div>
   </div>
 
   <script>

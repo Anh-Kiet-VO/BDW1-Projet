@@ -1,11 +1,15 @@
+<!--     PROFIL D'UN ADMIN     -->
+
 <?php
 session_start();
 require_once 'php/bd.php';
+require_once 'php/nav_connexion.php';
 require_once 'php/administrateur.php';
 require_once 'php/utilisateur.php';
 require_once 'php/photo.php';
 
 $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
+$connectState = getConnectState();
 
 $adminsList = getAllAdmins($link);
 
@@ -42,6 +46,16 @@ function displayTabStats($array)
 </head>
 
 <body>
+
+  <div class="navigation">
+    <div class="nav-utilisateur">
+      <?php showUser($connectState, $utilisateur, $link); ?>
+    </div>
+    <div class="nav-boutons">
+      <a class="boutonNav" href="./index.php">accueil</a>
+      <?php connectButton($connectState); ?>
+    </div>
+  </div>
 
   <div class="listeAdmins">Liste des administrateurs : <?php displayAdminsList($adminsList);?></div>
 

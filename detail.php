@@ -155,7 +155,7 @@ function showAdminContri()
       x.style.display = "flex";
     }
   }
-</script>
+  </script>
 
 </body>
 
