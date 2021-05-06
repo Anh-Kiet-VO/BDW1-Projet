@@ -23,10 +23,6 @@ function displayPhoto($nomFich)
     echo $html;
 }
 
-$machin = isAdminOrContributor($utilisateur, $imageNom, $link);
-$text = var_export($machin, true);
-echo $text;
-
 $confirmMsg = "";
 $errorMsg = "";
 
@@ -47,6 +43,23 @@ if (isset($_POST['supprimer'])) {
     deletePhoto($imageNom, $link);
     header("refresh:3;url=index.php");
     $confirmMsg = "La photo a bien été supprimée";
+}
+
+function showAdminContri()
+{
+    global $utilisateur, $imageNom, $link;
+    $boolAdminContri = isAdminOrContributor($utilisateur, $imageNom, $link);
+
+    if ($boolAdminContri) {
+        echo '<div class="optionsBoutons">
+          <button class="button" onclick="toggle()">Modifier</button>
+          <form action="" method="POST">
+            <input class="button" type="submit" name="supprimer" value="Supprimer">
+          </form>
+        </div>';
+    } else {
+        echo '';
+    }
 }
 
 ?>
@@ -112,12 +125,7 @@ if (isset($_POST['supprimer'])) {
     </div>
   </div>
 
-  <div class="optionsBoutons">
-    <button class="button" onclick="toggle()">Modifier</button>
-    <form action="" method="POST">
-      <input class="button" type="submit" name="supprimer" value="Supprimer">
-    </form>
-  </div>
+  <?php showAdminContri(); ?>
 
   <div id="formModif">
     <form action="" method="POST">
