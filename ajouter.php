@@ -11,13 +11,16 @@ require_once 'php/photo.php';
 $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
 $connectState = getConnectState();
 
+$errorMsg = "";
+$confirmMsg = "";
+
 if (isset($_POST['ajouter'])) {
     $getImage = basename($_FILES["fileToUpload"]["name"]);
     $getDescription = $_POST["description"];
     $getCategorie = $_POST["categorie"];
     $getUser = $_SESSION["user"];
     $imageFileType = strtolower(pathinfo($getImage, PATHINFO_EXTENSION));
-    $uploadOk = addPhoto($getImage, $getDescription, $getCategorie, $getUser, $link);
+    $uploadOk = addPhoto($getImage, $getDescription, $getCategorie, $getUser, $errorMsg, $link);
     if ($uploadOk == 1) {
         $new_path = renamePhoto($imageFileType, $link);
         header('Location: detail.php?img_nomFich=' . $new_path);
@@ -48,22 +51,25 @@ if (isset($_POST['ajouter'])) {
   </div>
 
   <div class="ajouter">
+    <div class="errorMsg"><?php echo $errorMsg; ?></div>
+    <div class="confirmMsg"><?php echo $confirmMsg; ?></div>
+    <div class="grand-titre"><span>Ajouter une image</span></div>
     <form action="ajouter.php" method="post" enctype="multipart/form-data">
-      Image : <br>
+      <b>Image :</b><br>
       <input type="file" name="fileToUpload" id="fileToUpload" required><br><br>
 
-      Description : <br>
-      <input type="text" name="description" id="description" required> <br> <br>
+      <b>Description :</b><br />
+      <input type="text" name="description" id="description" required> <br /> <br />
 
-      Catégorie : <br>
-  	<select name="categorie">
+      <b>Catégorie :</b><br />
+  	  <select name="categorie">
           <option value="1">Chiens</option>
           <option value="2">Chats</option>
           <option value="3">Chèvres</option>
           <option value="4">Singes</option>
           <option value="5">Quokkas</option>
-      </select> <br> <br>
-      <input type="submit" value="Envoyer" name="ajouter">
+      </select><br /><br />
+      <input class="button" type="submit" value="Envoyer" name="ajouter">
   </form>
   </div>
 

@@ -104,7 +104,7 @@ if (isset($_POST['submit'])) {
         </select>
       <input class="button" type="submit" name="submit" value="Valider" />
       </form>
-      <div class="nom-categorie"><span>Catégorie :</span> <?php echo $nomCat; ?></div>
+      <div class="grand-titre"><span>Catégorie :</span> <cat style="font-size: 1.3em;"><?php echo $nomCat; ?></cat></div>
     </div>
     <div class="galerie">
       <div class="gutter-size"></div>

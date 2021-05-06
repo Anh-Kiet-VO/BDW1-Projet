@@ -23,7 +23,7 @@ if (isset($_POST["changerMdp"])) {
     if ($hashMdp == $hashConfirmMdp) {
         updateMdp($utilisateur, $hashMdp, $link);
         $confirmMsg = "Le mot de passe a bien été changé";
-        header("refresh:3;url=profilUtilisateur.php");
+        header("refresh:5;url=profilUtilisateur.php");
     } else {
         $errorMsg = "Les mots de passe ne correspondent pas, veuillez réessayer";
     }
@@ -67,11 +67,10 @@ function displayPhotos($array)
     </div>
   </div>
 
-  <div class="confirmMsg"><?php echo $confirmMsg; ?></div>
-  <div class="errorMsg"><?php echo $errorMsg; ?></div>
-
   <div class="blocProfil">
-    <div class="profil-titre"><span>Vos informations personnelles :</span> <button onclick="toggle()">Modifier <i class="fas fa-cog"></i></button></div>
+    <div class="confirmMsg"><?php echo $confirmMsg; ?></div>
+    <div class="errorMsg"><?php echo $errorMsg; ?></div>
+    <div class="grand-titre"><span>Vos informations personnelles :</span> <button onclick="toggle()">Modifier <i class="fas fa-cog"></i></button></div>
     <div id="profilInfo">
       <b>Pseudo :</b> <?php echo $utilisateur; ?><br /><br />
       <b>Mot de passe :</b> ••••••••••<br /><br />
@@ -84,7 +83,7 @@ function displayPhotos($array)
           <div><input class="button" type="submit" name="changerMdp" value="Changer le mot de passe"></div>
       </form>
     </div>
-    <div class="profil-titre"><span>Vos images :</span></div>
+    <div class="grand-titre"><span>Vos images :</span></div>
   </div>
   <div class="galerieProfil">
     <div class="gutter-size"></div>

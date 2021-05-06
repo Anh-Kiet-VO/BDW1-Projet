@@ -43,6 +43,31 @@ input.button:hover, button.button:hover {
   background: var(--grey);
 }
 
+.errorMsg {
+  width: fit-content;
+  color: var(--error);
+  font-weight: bold;
+}
+
+.confirmMsg {
+  width: fit-content;
+  margin: 0 auto;
+  color: var(--confirm);
+  font-weight: bold;
+}
+
+.grand-titre {
+  width: 100%;
+  text-align: left;
+}
+
+.grand-titre span {
+  font-size: 1.3em;
+  background: var(--black);
+  color: white;
+  padding: 0 5px;
+}
+
 /*  -----------------------
       BARRE DE NAVIGATION
     -----------------------  */
@@ -147,12 +172,6 @@ input.button:hover, button.button:hover {
   font-size: 1.4em;
 }
 
-.categories .nom-categorie span {
-  background: var(--black);
-  color: white;
-  padding: 0 5px;
-}
-
 /*  -----------------------
           CONNEXION
     -----------------------  */
@@ -184,13 +203,6 @@ input.button:hover, button.button:hover {
   display: flex;
   justify-content: space-between;
   margin: 10px 0;
-}
-
-.errorMsg {
-  width: fit-content;
-  color: var(--error);
-  padding-bottom: 20px;
-  font-weight: bold;
 }
 
 /*  -----------------------
@@ -237,14 +249,6 @@ input.button:hover, button.button:hover {
   gap: 20px;
 }
 
-.confirmMsg {
-  width: fit-content;
-  margin: 0 auto;
-  padding: 30px 0 0 0;
-  color: var(--confirm);
-  font-weight: bold;
-}
-
 .photo {
   grid-column: 1 / 2;
   grid-row: 1 / 5;
@@ -282,17 +286,6 @@ input.button:hover, button.button:hover {
   padding: 30px 30px 0 30px;
 }
 
-.profil-titre {
-  width: 100%;
-}
-
-.profil-titre span {
-  font-size: 1.3em;
-  background: var(--black);
-  color: white;
-  padding: 0 5px;
-}
-
 .profil-titre button {
   background: none;
   border: none;
@@ -313,4 +306,39 @@ input.button:hover, button.button:hover {
 
 .mdpProfil {
   margin: 10px 0;
+}
+
+/*  -----------------------
+       AJOUTER UNE IMAGE
+    -----------------------  */
+.ajouter {
+  width: 350px;
+  margin: auto;
+  padding: 30px;
+}
+
+.ajouter form {
+  margin: 20px 0;
+}
+
+/*  -----------------------
+         PROFIL ADMIN
+    -----------------------  */
+.listeAdmins {
+  padding: 30px 30px 0 30px;
+}
+
+.statistiques {
+  padding: 30px;
+}
+
+.statistiques table {
+  border-collapse: collapse;
+  margin: 20px 0;
+  border: 1px solid var(--grey);
+}
+
+.statistiques th, .statistiques td {
+  border: 1px solid var(--grey);
+  padding: 5px;
 }

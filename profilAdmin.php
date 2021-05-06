@@ -30,7 +30,7 @@ function displayTabStats($array)
 {
     $html = '';
     foreach ($array as $key => $value) {
-        $html .= $key . ' ' . $value . ' ';
+        $html .= '<tr><td>' . $key . '</td><td>' . $value . '</td></tr>';
     }
     echo $html;
 }
@@ -57,11 +57,31 @@ function displayTabStats($array)
     </div>
   </div>
 
-  <div class="listeAdmins">Liste des administrateurs : <?php displayAdminsList($adminsList);?></div>
+  <div class="listeAdmins"><div class="grand-titre"><span>Liste des administrateurs :</span></div><br />
+  <?php displayAdminsList($adminsList);?></div>
 
-  <div class="statistiques">Nombre total d'utilisateurs : <?php echo $numUsers; ?><br />
-  Nombre de photos téléchargées par chaque utilisateur : <?php displayTabStats($numUsersPhotos); ?><br />
-Nombre de photos téléchargées dans chaque catégorie : <?php displayTabStats($numCatPhotos); ?></div>
+  <div class="statistiques">
+    <div class="grand-titre"><span>Les statistiques</span></div><br />
+    • <b>Nombre total d'utilisateurs :</b> <?php echo $numUsers; ?><br /><br />
+    • <b>Nombre de photos téléchargées par chaque utilisateur :</b><br />
+    <table>
+      <thead>
+        <th>Utilisateur</th><th>Nombre de photos postées</th>
+      </thead>
+      <tbody>
+      <?php displayTabStats($numUsersPhotos); ?>
+      </tbody>
+    </table>
+    • <b>Nombre de photos téléchargées dans chaque catégorie :</b><br />
+    <table>
+      <thead>
+        <th>Catégorie</th><th>Nombre de photos postées</th>
+      </thead>
+      <tbody>
+      <?php displayTabStats($numCatPhotos); ?>
+      </tbody>
+    </table>
+  </div>
 
 </body>
 </html>

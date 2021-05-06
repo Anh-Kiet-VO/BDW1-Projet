@@ -44,6 +44,7 @@ function detail($imageNom, $link)
 
 function addPhoto($imageNom, $imageDesc, $catId, $pseudo, $link)
 {
+    global $errorMsg, $confirmMsg;
     /* AJOUTE LA PHOTO SUR LE SERVEUR */
     $target_dir = "./image/";
     $target_file = $target_dir . $imageNom;
@@ -55,46 +56,39 @@ function addPhoto($imageNom, $imageDesc, $catId, $pseudo, $link)
     if (isset($_POST["submit"])) {
         $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
         if ($check !== false) {
-            echo "Le fichier est une image correcte - " . $check["mime"] . ".";
             $uploadOk = 1;
         } else {
-            echo "Le fichier n'est pas une image.";
+            $errorMsg .= "Le fichier n'est pas une image.<br />";
             $uploadOk = 0;
         }
     }
 
-    // Vérifie si le fichier existe
-    if (file_exists($new_target_file)) {
-        echo "Erreur, le fichier existe déjà.\n";
-        $uploadOk = 0;
-    }
-
     // Vérifie la taille du fichier
     if ($_FILES["fileToUpload"]["size"] > 100000) {
-        echo "Erreur, le fichier est trop volumineux.\n";
+        $errorMsg .= "Erreur, le fichier est trop volumineux.<br />";
         $uploadOk = 0;
     }
 
     // Autorise seulement certains formats
     if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
   && $imageFileType != "gif") {
-        echo "Erreur, seuls les formats JPG, JPEG, PNG et GIF sont autorisés.\n";
+        $errorMsg .= "Erreur, seuls les formats JPG, JPEG, PNG et GIF sont autorisés.<br />";
         $uploadOk = 0;
     }
 
     // Vérifie si $uploadOk est à 0 à cause d'une erreur
     if ($uploadOk == 0) {
-        echo "Erreur, le fichier n'a pas été téléchargé.\n";
+        $errorMsg .= "Erreur, le fichier n'a pas été téléchargé.<br />";
     // Si tout est ok ($upload == 1) alors on essaie de télécharger le fichier
     } else {
         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $new_target_file)) {
-            echo "Le fichier ". htmlspecialchars(basename($_FILES["fileToUpload"]["name"])). " a bien été téléchargé.\n";
+            $confirmMsg = "Le fichier ". htmlspecialchars(basename($_FILES["fileToUpload"]["name"])). " a bien été téléchargé.<br />";
 
             /* AJOUTE LA PHOTO DANS LA BASE DE DONNEES */
             $query = "INSERT INTO Photo(nomFich, description, catId, pseudo) VALUES ('" . $new_target_file . "', '" . $imageDesc . "', " . $catId . ", '" . $pseudo . "')";
             executeUpdate($link, $query);
         } else {
-            echo "Erreur lors du téléchargement du fichier.\n";
+            $errorMsg .= "Erreur lors du téléchargement du fichier.<br />";
         }
     }
 
