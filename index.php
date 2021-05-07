@@ -11,6 +11,12 @@ require_once 'php/photo.php';
 $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
 $connectState = getConnectState();
 
+if (empty($_SESSION)) {
+    $role = "";
+} else {
+    $role = getRole($utilisateur, $link);
+}
+
 if (empty($_GET)) {
     $pathsCatList = getImagesPaths($link);
 } else {

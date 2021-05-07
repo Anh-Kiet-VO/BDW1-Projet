@@ -65,7 +65,7 @@ function addPhoto($imageNom, $imageDesc, $catId, $pseudo, $link)
 
     // Vérifie la taille du fichier
     if ($_FILES["fileToUpload"]["size"] > 100000) {
-        $errorMsg .= "Erreur, le fichier est trop volumineux.<br />";
+        $errorMsg .= "Erreur, le fichier est trop lourd : il ne doit pas dépasser 100 Ko.<br />";
         $uploadOk = 0;
     }
 

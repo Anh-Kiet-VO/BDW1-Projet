@@ -11,6 +11,8 @@ require_once 'php/photo.php';
 $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
 $connectState = getConnectState();
 
+$role = getRole($utilisateur, $link);
+
 $imageNom = $_GET["img_nomFich"];
 
 $tabDetail = detail($imageNom, $link);
