@@ -1,4 +1,9 @@
 <?php
+
+/* Récupère l'état de connexion :
+   0 = déconnecté
+   1 = connecté, admin
+   2 = connecté, user */
 function getConnectState()
 {
     global $utilisateur, $link;
@@ -17,6 +22,7 @@ function getConnectState()
     return $connectState;
 }
 
+/* Renvoie un temps plus lisible au format h-min-sec à partir d'un temps en secondes */
 function timeElapsed($secs)
 {
     $bit = array(
@@ -38,6 +44,7 @@ function timeElapsed($secs)
     }
 }
 
+/* Affiche le bon rôle et le bon lien de profil en fonction de qui est connecté */
 function profilButton($connectState, $utilisateur, $role)
 {
     if ($connectState == 2) {
@@ -47,6 +54,7 @@ function profilButton($connectState, $utilisateur, $role)
     }
 }
 
+/* Affiche ce que renvoie profilButton() et la durée de connexion */
 function showUser($connectState, $utilisateur, $link)
 {
     global $role;
@@ -63,6 +71,7 @@ function showUser($connectState, $utilisateur, $link)
     }
 }
 
+/* Affiche les bons boutons de navigation selon l'état de connexion */
 function connectButton($connectState)
 {
     if ($connectState == 0) {

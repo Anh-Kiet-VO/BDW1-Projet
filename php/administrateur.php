@@ -1,6 +1,6 @@
 <?php
 
-//A commenter
+/* Vérifie si l'utilisateur est un admin ou pas */
 function checkIfAdmin($pseudo, $link)
 {
     $query = "SELECT * FROM Utilisateur WHERE pseudo = '" . $pseudo ."' AND role = 'admin'";
@@ -8,6 +8,7 @@ function checkIfAdmin($pseudo, $link)
     return mysqli_num_rows($result) == 1;
 }
 
+/* Récupère la liste de pseudos de tous les admins */
 function getAllAdmins($link)
 {
     $query = "SELECT pseudo FROM Utilisateur WHERE role = 'admin';";
@@ -18,6 +19,7 @@ function getAllAdmins($link)
     return $adminsList;
 }
 
+/* Récupère la liste de pseudos de tous les utilisateurs normaux */
 function getAllUsers($link)
 {
     $query = "SELECT pseudo FROM Utilisateur WHERE role = 'user';";
@@ -28,6 +30,7 @@ function getAllUsers($link)
     return $usersList;
 }
 
+/* Récupère le nombre total d'utilisateurs (admins inclus) */
 function getNumUsers($link)
 {
     $query = "SELECT COUNT(pseudo) AS numUsers FROM Utilisateur";
@@ -37,6 +40,7 @@ function getNumUsers($link)
     return $numUsers['numUsers'];
 }
 
+/* Récupère le nombre de photos postées par chaque utilisateur */
 function getNumUsersPhotos($link)
 {
     $query = "SELECT U.pseudo, COUNT(P.photoId) AS numPhotos FROM Utilisateur U JOIN Photo P ON U.pseudo = P.pseudo GROUP BY U.pseudo";
@@ -53,6 +57,7 @@ function getNumUsersPhotos($link)
     return $tabUsersPhotos;
 }
 
+/* Récupère le nombre de photos postées dans chaque catégorie */
 function getNumCatPhotos($link)
 {
     $query = "SELECT C.nomCat, COUNT(P.photoId) AS numPhotos FROM Categorie C JOIN Photo P ON C.catId = P.catId GROUP BY C.nomCat";

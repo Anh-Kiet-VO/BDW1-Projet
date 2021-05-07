@@ -1,7 +1,6 @@
 <?php
 
-/*Cette fonction prend en entrée un pseudo à ajouter à la relation utilisateur et une connexion et
-retourne vrai si le pseudo est disponible (pas d'occurence dans les données existantes), faux sinon*/
+/* Vérifie si le pseudo donné en paramètre est disponible dans la BDD, si disponible => renvoie vrai */
 function checkAvailability($pseudo, $link)
 {
     $query = "SELECT U.pseudo FROM Utilisateur U WHERE U.pseudo = '". $pseudo ."';";
@@ -9,23 +8,28 @@ function checkAvailability($pseudo, $link)
     return mysqli_num_rows($result) == 0;
 }
 
-/*Cette fonction prend en entrée un pseudo et un mot de passe, associe une couleur aléatoire dans le tableau de taille fixe
-array('red', 'green', 'blue', 'black', 'yellow', 'orange') et enregistre le nouvel utilisateur dans la relation utilisateur via la connexion*/
+/* Inscrit l'utilisateur dans la BDD dans la table 'Utilisateur' avec son pseudo, son mdp, le statut 'disconnected' et le rôle 'user' */
 function register($pseudo, $hashPwd, $link)
 {
     $query = "INSERT INTO Utilisateur VALUES ('". $pseudo ."', '". $hashPwd ."', 'disconnected', 'user');";
     executeUpdate($link, $query);
 }
 
-/*Cette fonction prend en entrée un pseudo d'utilisateur et change son état en 'connected' dans la relation
-utilisateur via la connexion*/
+/* Change l'état de l'utilisateur en 'connected' quand il se connecte sur le site */
 function setConnected($pseudo, $tempsConnexion, $link)
 {
     $query = "UPDATE Utilisateur SET etat = 'connected' WHERE pseudo = '" . $pseudo . "';";
     executeUpdate($link, $query);
 }
 
-/*Cette fonction prend en entrée un pseudo et mot de passe et renvoie vrai si l'utilisateur existe (au moins un tuple dans le résultat), faux sinon*/
+/* Change l'état de l'utilisateur en 'disconnected' quand il se déconnecte sur le site */
+function setDisconnected($pseudo, $link)
+{
+    $query = "UPDATE Utilisateur SET etat = 'disconnected' WHERE pseudo = '" . $pseudo . "';";
+    executeUpdate($link, $query);
+}
+
+/* Vérifie si l'utilisateur existe à la connexion, s'il existe => renvoie vrai */
 function getUser($pseudo, $hashPwd, $link)
 {
     $query = "SELECT * FROM Utilisateur U WHERE U.pseudo = '" . $pseudo . "' AND U.mdp = '" . $hashPwd . "';";
@@ -33,6 +37,7 @@ function getUser($pseudo, $hashPwd, $link)
     return mysqli_num_rows($result) >= 1;
 }
 
+/* Récupère le rôle de l'utilisateur connecté */
 function getRole($pseudo, $link)
 {
     $query = "SELECT role FROM Utilisateur WHERE pseudo = '" . $pseudo . "'";
@@ -42,31 +47,14 @@ function getRole($pseudo, $link)
     return $role['role'];
 }
 
+/* Change le mdp de l'utilisateur */
 function updateMdp($pseudo, $hashPwd, $link)
 {
     $query = "UPDATE Utilisateur SET mdp = '" . $hashPwd . "' WHERE pseudo = '" . $pseudo . "'";
     executeUpdate($link, $query);
 }
 
-/*Cette fonction renvoie un tableau (array) contenant tous les pseudos d'utilisateurs dont l'état est 'connected'*/
-function getConnectedUsers($link)
-{
-    $query = "SELECT U.pseudo FROM Utilisateur U WHERE U.etat = 'connected';";
-    $usersList = array();
-    foreach ($link->query($query) as $row) {
-        $usersList[] = $row['pseudo'];
-    }
-    return $usersList;
-}
-
-/*Cette fonction prend en entrée un pseudo d'utilisateur et change son état en 'disconnected' dans la relation
-utilisateur via la connexion*/
-function setDisconnected($pseudo, $link)
-{
-    $query = "UPDATE Utilisateur SET etat = 'disconnected' WHERE pseudo = '" . $pseudo . "';";
-    executeUpdate($link, $query);
-}
-
+/* Vérifie si l'utilisateur est un admin ou un contributeur (= la personne qui a posté la photo) */
 function isAdminOrContributor($utilisateur, $imageNom, $link)
 {
     $query_admin = "SELECT * FROM Utilisateur WHERE pseudo = '" . $utilisateur . "' AND role = 'admin'";
@@ -88,6 +76,7 @@ function isAdminOrContributor($utilisateur, $imageNom, $link)
     return ($isAdmin || $isContributor);
 }
 
+/* Récupère les noms des photos que l'utilisateur mis en paramètre a posté */
 function getPhotosUser($utilisateur, $link)
 {
     $query = "SELECT nomFich FROM Photo WHERE pseudo = '" . $utilisateur . "'";

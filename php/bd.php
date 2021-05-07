@@ -1,11 +1,12 @@
 <?php
 
+/* Variables globales pour accéder à la BDD */
 $dbHost = "localhost";
 $dbUser = "p1908025";
 $dbPwd = "Switch57Spinal";
 $dbName = "p1908025";
 
-/*Cette fonction prend en entrée l'identifiant de la machine hôte de la base de données, les identifiants (login, mot de passe) d'un utilisateur autorisé sur la base de données contenant les tables pour le chat et renvoie une connexion active sur cette base de donnée. Sinon, un message d'erreur est affiché.*/
+/* Crée une connexion avec la BDD */
 function getConnection($dbHost, $dbUser, $dbPwd, $dbName)
 {
     //Crée une connexion
@@ -19,8 +20,7 @@ function getConnection($dbHost, $dbUser, $dbPwd, $dbName)
     return $connexion;
 }
 
-/*Cette fonction prend en entrée une connexion vers la base de données du chat ainsi
-qu'une requête SQL SELECT et renvoie les résultats de la requête. Si le résultat est faux, un message d'erreur est affiché*/
+/* Exécute la requête SQL de type SELECT dans la BDD et renvoie le résultat */
 function executeQuery($link, $query)
 {
     $resultat = mysqli_query($link, $query, MYSQLI_STORE_RESULT);
@@ -32,9 +32,7 @@ function executeQuery($link, $query)
     return $resultat;
 }
 
-/*Cette fonction prend en entrée une connexion vers la base de données du chat ainsi
-qu'une requête SQL INSERT/UPDATE/DELETE et ne renvoie rien si la mise à jour a fonctionné, sinon un
-message d'erreur est affiché.*/
+/* Exécute la requête SQL de type INSERT / UPDATE / DELETE dans la BDD et renvoie le résultat */
 function executeUpdate($link, $query)
 {
     $resultat = mysqli_query($link, $query);
@@ -44,7 +42,7 @@ function executeUpdate($link, $query)
     }
 }
 
-/*Cette fonction ferme la connexion active $link passée en entrée*/
+/* Ferme la connexion active $link passée en entrée */
 function closeConnexion($link)
 {
     mysqli_close($link);

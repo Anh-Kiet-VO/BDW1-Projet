@@ -1,6 +1,6 @@
 <?php
 
-// Récupère les chemin de toutes les images
+/* Récupère les chemins de toutes les images */
 function getImagesPaths($link)
 {
     $query = "SELECT P.nomFich FROM Photo P";
@@ -11,7 +11,7 @@ function getImagesPaths($link)
     return $pathsList;
 }
 
-// Récupère la catégorie de l'image
+/* Récupère les chemins des images de la catégorie mis en paramètre */
 function getImgCategorie($link, $catId)
 {
     $query = "SELECT P.nomFich FROM Photo P WHERE catId = " . $catId . ";";
@@ -22,7 +22,7 @@ function getImgCategorie($link, $catId)
     return $pathsCatList;
 }
 
-// Récupère nom de la catégorie d'après son Id
+/* Récupère le nom de la catégorie d'après son nom (unique) */
 function getNomCat($imageNom, $catId, $link)
 {
     $query = "SELECT C.nomCat FROM Categorie C JOIN Photo P ON C.catId = " . $catId . " WHERE P.nomFich = '" . $imageNom . "';";
@@ -32,7 +32,7 @@ function getNomCat($imageNom, $catId, $link)
     return $assocNomCat;
 }
 
-// Récupère les informations d'une image en fonction de son Id
+/* Récupère les informations d'une image en fonction de son nom (unique) */
 function detail($imageNom, $link)
 {
     $query = "SELECT nomFich, description, catId, pseudo FROM Photo WHERE nomFich = '" . $imageNom . "';";
@@ -42,6 +42,7 @@ function detail($imageNom, $link)
     return $assocTabDetail;
 }
 
+/* Ajoute une photo dans le serveur et dans la BDD */
 function addPhoto($imageNom, $imageDesc, $catId, $pseudo, $link)
 {
     global $errorMsg, $confirmMsg;
@@ -95,6 +96,7 @@ function addPhoto($imageNom, $imageDesc, $catId, $pseudo, $link)
     return $uploadOk;
 }
 
+/* Récupère l'id de la photo (avec un nom temporaire) qui vient d'être ajoutée */
 function getTempPhotoId($link)
 {
     $query = "SELECT photoId FROM Photo WHERE nomFich = './image/temp'";
@@ -103,6 +105,7 @@ function getTempPhotoId($link)
     return $tabResult['photoId'];
 }
 
+/* Renomme la photo qui vient d'être ajoutée */
 function renamePhoto($fileType, $link)
 {
     $photoId = getTempPhotoId($link);
@@ -118,6 +121,7 @@ function renamePhoto($fileType, $link)
     return $new_path;
 }
 
+/* Supprime la photo du serveur et de la BDD */
 function deletePhoto($imageNom, $link)
 {
     /* SUPPRIME DU SERVEUR */
@@ -130,6 +134,7 @@ function deletePhoto($imageNom, $link)
     $imageNom = str_replace(array( '..', '/', '\\', ':' ), '', $imageNom);
 }
 
+/* Modifie les détails de la photo */
 function editPhoto($imageNom, $imageDesc, $catId, $link)
 {
     $query = "UPDATE Photo SET description = '" . $imageDesc . "', catId = " . $catId . " WHERE nomFich = '" . $imageNom . "'";
