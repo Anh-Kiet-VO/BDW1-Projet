@@ -11,7 +11,11 @@ require_once 'php/photo.php';
 $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
 $connectState = getConnectState();
 
-$role = getRole($utilisateur, $link);
+if (empty($_SESSION)) {
+    $role = "";
+} else {
+    $role = getRole($utilisateur, $link);
+}
 
 $imageNom = $_GET["img_nomFich"];
 

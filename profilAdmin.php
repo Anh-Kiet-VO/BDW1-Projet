@@ -12,12 +12,13 @@ $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
 $connectState = getConnectState();
 
 $adminsList = getAllAdmins($link);
+$usersList = getAllUsers($link);
 
 $numUsers = getNumUsers($link);
 $numUsersPhotos = getNumUsersPhotos($link);
 $numCatPhotos = getNumCatPhotos($link);
 
-function displayAdminsList($array)
+function displayPseudoList($array)
 {
     $html = '';
     foreach ($array as $value) {
@@ -110,7 +111,10 @@ function displayPhotos($array)
   </div>
 
   <div class="listeAdmins"><div class="grand-titre"><span>Liste des administrateurs :</span></div><br />
-  <?php displayAdminsList($adminsList);?></div>
+  <?php displayPseudoList($adminsList);?></div>
+
+  <div class="listeUsers"><div class="grand-titre"><span>Liste des utilisateurs :</span></div><br />
+  <?php displayPseudoList($usersList);?></div>
 
   <div class="statistiques">
     <div class="grand-titre"><span>Les statistiques</span></div><br />

@@ -18,6 +18,16 @@ function getAllAdmins($link)
     return $adminsList;
 }
 
+function getAllUsers($link)
+{
+    $query = "SELECT pseudo FROM Utilisateur WHERE role = 'user';";
+    $usersList = array();
+    foreach ($link->query($query) as $row) {
+        $usersList[] = $row['pseudo'];
+    }
+    return $usersList;
+}
+
 function getNumUsers($link)
 {
     $query = "SELECT COUNT(pseudo) AS numUsers FROM Utilisateur";

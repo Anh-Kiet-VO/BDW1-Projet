@@ -331,6 +331,10 @@ input.button:hover, button.button:hover {
          PROFIL ADMIN
     -----------------------  */
 .listeAdmins {
+  padding: 0 30px 30px 30px;
+}
+
+.listeUsers {
   padding: 0 30px;
 }
 
