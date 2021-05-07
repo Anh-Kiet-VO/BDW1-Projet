@@ -18,7 +18,7 @@ Le projet a été codé en **PHP** pour manipuler la base de données et en **HT
 
 La base de données est schématisée de cette façon :
 > Categorie(*catId*, nomCat)  
-> Photo(*photoId*, nomFich, description, #catId, pseudo)
+> Photo(*photoId*, nomFich, description, #catId, pseudo)  
 > Utilisateur(*pseudo*, mdp, etat, role)
 
 ## 🔖 Organisation de l'archive : 
@@ -27,6 +27,8 @@ css/
 ├─ Fichiers de style CSS
 doc/
 ├─ Documentation du projet avec les consignes, la présentation, etc...
+image/
+├─ Images utilisées de base
 php/
 ├─ Fonctions php utilisées sur plusieurs pages
 sql/
@@ -41,7 +43,7 @@ profilAdmin.php
 profilUtilisateur.php
 ```
 
-## 📚 Documentations :
+## 📚 Documentation :
 * Affichage de la galerie d'images de [manière responsive](https://masonry.desandro.com/) (index.php)
 * Utilisation de la fonction [onClick](https://developer.mozilla.org/fr/docs/Web/API/GlobalEventHandlers/onclick) pour certains boutons
 * [Bibliothèque d'icons (fontawesome)](https://fontawesome.com/)
