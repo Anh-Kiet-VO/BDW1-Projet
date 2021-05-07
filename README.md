@@ -14,7 +14,7 @@ Pour accéder à l'application, il faut aller sur [cette page web](https://bdw1.
 
 ## 💻 L'environnement de travail :
 
-Le projet a été codé en **PHP** pour manipuler la base de données et en **HTML/CSS** pour afficher le site web.  
+Le projet a été codé en **PHP** pour manipuler la base de données et en **HTML/CSS** pour afficher le site web. Pour gérer notre base de données nous avons utiliser **PhpMyAdmin**
 
 La base de données est schématisée de cette façon :
 > Categorie(*catId*, nomCat)  
