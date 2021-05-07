@@ -14,7 +14,7 @@ Pour accéder à l'application, il faut aller sur [cette page web](https://bdw1.
 
 ## 💻 L'environnement de travail :
 
-Le projet a été codé en **PHP** pour manipuler la base de données et en **HTML/CSS** pour afficher le site web. Pour gérer notre base de données nous avons utiliser **PhpMyAdmin**
+Le projet a été codé en **PHP** pour manipuler la base de données et en **HTML/CSS** pour afficher le site web. Pour gérer notre base de données nous avons utilisé **PhpMyAdmin** en faisant des requêtes **SQL**.
 
 La base de données est schématisée de cette façon :
 > Categorie(*catId*, nomCat)  
@@ -52,5 +52,3 @@ profilUtilisateur.php
 
 * Anh-Kiet VO (p1907921 - anh-kiet.vo@etu.univ-lyon1.fr)
 * Cécilia NGUYEN (p1908025 - cecilia.nguyen@etu.univ-lyon1.fr)
-
-
